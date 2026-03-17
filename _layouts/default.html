@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'zh-CN' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{{ page.description | default: site.description }}">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    {% seo %}
+  </head>
+  <body>
+    <div class="page-shell">
+      <aside class="sidebar">
+        <a class="brand" href="{{ '/' | relative_url }}">
+          <span class="brand-mark">BD</span>
+          <span class="brand-copy">
+            <strong>{{ site.title }}</strong>
+            <span>个人开发文档站</span>
+          </span>
+        </a>
+
+        <nav class="nav-block">
+          <p>快速入口</p>
+          <a href="{{ '/' | relative_url }}">首页</a>
+          <a href="{{ '/docs/' | relative_url }}">文档目录</a>
+          <a href="{{ '/docs/dev-workflow/' | relative_url }}">开发工作流</a>
+          <a href="{{ '/docs/feature-examples/' | relative_url }}">功能样例</a>
+        </nav>
+
+        <section class="side-card">
+          <p>维护提示</p>
+          <ul>
+            <li>优先记录方案结论，而不是只存代码。</li>
+            <li>每个功能页保留“目标、实现、风险、待办”。</li>
+            <li>截图和流程图直接替换 `assets/images/` 占位图即可。</li>
+          </ul>
+        </section>
+      </aside>
+
+      <main class="content">
+        {{ content }}
+      </main>
+    </div>
+  </body>
+</html>
