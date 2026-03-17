@@ -1,65 +1,48 @@
 ---
+layout: page
 title: 关于
 permalink: /about/
-category_label: About
-description: 站点定位、内容分类、写作方式与资源存储建议。
+description: 站点说明、维护方式与写作约定。
 ---
 
-这个站点用于长期整理个人技术文档，定位是一个轻量、可持续维护的个人知识花园。
+## 站点定位
 
-## 站点模块
+这是一个用于长期维护的个人技术文档站，内容分为三大模块：
 
-### 个人研究
-用于记录自己的研究性内容，例如：
+- 个人研究
+- 技术翻译
+- 技术理解
 
-- 长文档解析框架
-- Agent 系统架构设计
-- 文档结构恢复思路
-- 实验方案与阶段性结论
+## 目录组织方式
 
-### 技术翻译
-用于整理外文资料翻译，例如：
+站点支持三级组织结构：
 
-- 论文阅读翻译
-- 官方技术文档翻译
-- 博客或技术报告译注
+- 模块：`research/`、`translation/`、`understanding/`
+- 父目录：模块下的专题文件夹，例如 `research/doc-parsing/`
+- 文章：父目录中的普通 `.md` 文件
 
-### 技术理解
-用于沉淀个人理解，例如：
+## 新增一个父目录的方法
 
-- 结构化输出
-- RAG 设计思路
-- Agent 工作流拆解
-- 工程实践总结
+1. 在某个模块下新建一个文件夹  
+2. 在该文件夹下创建 `index.md`  
+3. 在同目录继续新增文章 `.md`
 
-## 图片与附件存放建议
-
-推荐统一放在：
+例如：
 
 ```text
-assets/images/
+research/
+└── doc-parsing/
+    ├── index.md
+    ├── layout-analysis.md
+    └── cross-page-memory.md
 ```
 
-进一步可以按模块细分：
+## 图片存储建议
+
+建议按模块和专题继续分文件夹：
 
 ```text
-assets/images/research/
-assets/images/translation/
-assets/images/understanding/
-assets/images/samples/
+assets/images/research/doc-parsing/
+assets/images/translation/llm/
+assets/images/understanding/structured-output/
 ```
-
-Markdown 中插图示例：
-
-```md
-![示意图](/assets/images/research/your-image.png)
-```
-
-## 写作建议
-
-建议正文都使用 Markdown 撰写，这样便于：
-
-- 快速新增文章
-- 专注内容本身
-- 保持统一样式
-- 在 GitHub 中直接编辑维护

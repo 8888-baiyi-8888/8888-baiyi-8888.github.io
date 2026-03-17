@@ -1,30 +1,23 @@
 ---
 layout: default
 ---
-{% assign crumbs = page.url | split: '/' %}
 <section class="article-header card">
-  {% if page.parent_title or page.module_title %}
   <div class="meta-line">
     {% if page.module_title %}<span class="chip">{{ page.module_title }}</span>{% endif %}
     {% if page.parent_title %}<span class="chip">{{ page.parent_title }}</span>{% endif %}
+    <span class="chip chip-soft">目录页</span>
   </div>
-  {% endif %}
   <h1>{{ page.title }}</h1>
   {% if page.description %}<p class="page-desc">{{ page.description }}</p>{% endif %}
-  {% if page.url != '/' %}
   <p class="breadcrumb">
     <a href="{{ '/' | relative_url }}">首页</a>
     {% if page.module_path and page.module_title %}
       / <a href="{{ page.module_path | relative_url }}">{{ page.module_title }}</a>
     {% endif %}
-    {% if page.parent_path and page.parent_title %}
-      / <a href="{{ page.parent_path | relative_url }}">{{ page.parent_title }}</a>
-    {% endif %}
     / <span>{{ page.title }}</span>
   </p>
-  {% endif %}
 </section>
 
-<article class="article-body card prose">
+<section class="article-body card prose">
   {{ content }}
-</article>
+</section>

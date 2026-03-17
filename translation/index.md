@@ -1,11 +1,13 @@
 ---
+layout: section
 title: 技术翻译
 permalink: /translation/
-category_label: Translation
-description: 整理论文、博客与官方文档的翻译和译注。
+module_title: 技术翻译
+module_path: /translation/
+description: 整理论文、官方文档与博客文章的翻译内容。
 ---
 
-下面是当前模块下的示例文章：
+## 子专题目录
 
-- [Context Engineering 阅读翻译示例]({{ '/translation/context-engineering/' | relative_url }})
-- [PageIndex 介绍页翻译示例]({{ '/translation/pageindex-intro/' | relative_url }})
+- [LLM](/translation/llm/)
+- [Document AI](/translation/document-ai/)

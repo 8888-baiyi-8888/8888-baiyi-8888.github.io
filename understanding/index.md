@@ -1,11 +1,13 @@
 ---
+layout: section
 title: 技术理解
 permalink: /understanding/
-category_label: Understanding
-description: 记录原理拆解、概念总结与工程理解。
+module_title: 技术理解
+module_path: /understanding/
+description: 用于沉淀概念拆解、原理理解与实践总结。
 ---
 
-下面是当前模块下的示例文章：
+## 子专题目录
 
-- [结构化输出为什么重要]({{ '/understanding/structured-output/' | relative_url }})
-- [Agent 评估可以看什么]({{ '/understanding/agent-evaluation/' | relative_url }})
+- [结构化输出](/understanding/structured-output/)
+- [Agents](/understanding/agents/)

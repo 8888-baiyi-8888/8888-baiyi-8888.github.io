@@ -1,0 +1,53 @@
+---
+layout: default
+---
+<section class="hero card">
+  <div class="hero-copy">
+    <span class="eyebrow">Personal Knowledge Garden</span>
+    <h1>{{ page.hero_title | default: page.title }}</h1>
+    <p class="hero-desc">{{ page.hero_desc }}</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{{ '/research/' | relative_url }}">进入个人研究</a>
+      <a class="btn btn-secondary" href="{{ '/about/' | relative_url }}">查看站点说明</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <img src="{{ '/assets/images/samples/hero-landscape.svg' | relative_url }}" alt="站点插图">
+  </div>
+</section>
+
+<section class="grid-three">
+  <a class="card module-card" href="{{ '/research/' | relative_url }}">
+    <h2>个人研究</h2>
+    <p>适合记录论文思路、系统设计、实验方案、专题研究。</p>
+  </a>
+  <a class="card module-card" href="{{ '/translation/' | relative_url }}">
+    <h2>技术翻译</h2>
+    <p>适合整理论文、官方文档、博客文章的翻译与对照笔记。</p>
+  </a>
+  <a class="card module-card" href="{{ '/understanding/' | relative_url }}">
+    <h2>技术理解</h2>
+    <p>适合沉淀原理拆解、概念总结、实践心得和问题分析。</p>
+  </a>
+</section>
+
+<section class="grid-two">
+  <div class="card">
+    <h2>目录组织方式</h2>
+    <p>现在支持“模块 → 父目录 → 文章”的三级结构。您只要新建一个文件夹，并在其中放一个 <code>index.md</code>，它就能作为父目录页。</p>
+    <ul class="soft-list">
+      <li>research/xxx/index.md：研究专题目录</li>
+      <li>translation/xxx/index.md：翻译专题目录</li>
+      <li>understanding/xxx/index.md：理解专题目录</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>示例专题</h2>
+    <ul class="soft-list">
+      <li><a href="{{ '/research/doc-parsing/' | relative_url }}">个人研究 / 文档解析</a></li>
+      <li><a href="{{ '/research/agent-system/' | relative_url }}">个人研究 / Agent 系统</a></li>
+      <li><a href="{{ '/translation/llm/' | relative_url }}">技术翻译 / LLM</a></li>
+      <li><a href="{{ '/understanding/structured-output/' | relative_url }}">技术理解 / 结构化输出</a></li>
+    </ul>
+  </div>
+</section>
