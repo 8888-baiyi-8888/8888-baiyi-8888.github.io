@@ -1,96 +1,100 @@
-# personal-docs-github-pages
+# 春和景明 · 个人文档
 
-一个可直接部署到 GitHub Pages 的个人文档站点。
+这是一个基于 **Jekyll + Markdown + GitHub Pages** 的个人文档站模板。
 
-## 站点模块
+## 特点
 
-- 个人研究
-- 技术翻译
-- 技术理解
+- 正文主要使用 Markdown 编写
+- 适合长期维护个人研究、技术翻译、技术理解三类内容
+- 浅绿蓝、春和景明风格
+- 可直接部署到 GitHub Pages
 
-## 风格说明
-
-整体采用浅绿、浅蓝、米白配色，视觉上偏“春和景明”。
-
-## 项目结构
+## 目录说明
 
 ```text
-personal-docs-github-pages/
-├── index.html
-├── pages/
-│   ├── about.html
-│   ├── research.html
-│   ├── translation.html
-│   └── understanding.html
+.
+├── _config.yml
+├── _layouts/
+├── assets/
+├── index.md
+├── about.md
 ├── research/
-│   ├── long-document-parsing.html
-│   └── agent-writing-pipeline.html
 ├── translation/
-│   ├── context-engineering.html
-│   └── pageindex-intro.html
-├── understanding/
-│   ├── structured-output.html
-│   └── agent-evaluation.html
-└── assets/
-    ├── css/
-    │   └── style.css
-    ├── js/
-    │   └── site.js
-    └── images/
-        └── samples/
-            ├── hero-landscape.svg
-            └── doc-structure-sample.svg
+└── understanding/
 ```
-
-## 本地预览
-
-直接双击 `index.html` 就能看。
-
-## 部署到 GitHub Pages
-
-### 方式一：仓库名为 `你的用户名.github.io`
-
-直接把全部文件推到仓库根目录即可。
-
-### 方式二：普通仓库
-
-1. 新建仓库，例如 `personal-docs`
-2. 将本项目文件推到仓库根目录
-3. 打开 GitHub 仓库设置
-4. 进入 `Pages`
-5. 在 `Build and deployment` 中选择：
-   - Source: `Deploy from a branch`
-   - Branch: `main`
-   - Folder: `/ (root)`
-6. 保存后等待 GitHub Pages 发布
 
 ## 如何新增文章
 
-以“个人研究”为例：
+以“个人研究”模块为例，在 `research/` 下新增一个 `.md` 文件：
 
-1. 新建文件：`research/your-article.html`
-2. 参考已有文章页面复制一份结构
-3. 在 `pages/research.html` 中新增入口卡片
+```md
+---
+title: 你的文章标题
+permalink: /research/your-article/
+category_label: 个人研究
+description: 这里写简介
+---
 
-## 图片存储建议
+# 正文开始
 
-- 公共图片放：`assets/images/`
-- 首页和示例图放：`assets/images/samples/`
-- 后续也可以扩展为：
+这里写你的内容。
+```
+
+## 图片怎么放
+
+推荐放到：
 
 ```text
 assets/images/
-├── research/
-├── translation/
-├── understanding/
-└── samples/
 ```
 
-## 自定义建议
+例如：
 
-您后续可以优先改这几个位置：
+```text
+assets/images/research/
+assets/images/translation/
+assets/images/understanding/
+assets/images/samples/
+```
 
-- `index.html`：首页标题、简介、入口文案
-- `pages/*.html`：模块页说明
-- `research/*.html`、`translation/*.html`、`understanding/*.html`：正文内容
-- `assets/css/style.css`：整体配色、圆角、阴影、字体大小
+Markdown 引用示例：
+
+```md
+![示意图](/assets/images/research/example.png)
+```
+
+## 部署到 GitHub Pages
+
+### 方式一：用户主页仓库
+
+如果您的仓库名是：
+
+```text
+<用户名>.github.io
+```
+
+则直接把本项目文件放到仓库根目录即可。
+
+### 方式二：普通仓库 Pages
+
+如果您用的是普通仓库，也可以启用 GitHub Pages。
+
+在仓库设置中：
+
+- 打开 `Settings`
+- 进入 `Pages`
+- Source 选择 `Deploy from a branch`
+- Branch 选择 `main`
+- Folder 选择 `/root`
+
+保存后等待发布。
+
+## 本地预览
+
+如果本地装了 Ruby 和 Jekyll，可以运行：
+
+```bash
+bundle exec jekyll serve
+```
+
+如果只是看静态页面结构，也可以直接查看生成后的页面，但推荐通过 GitHub Pages 或 Jekyll 本地服务预览。

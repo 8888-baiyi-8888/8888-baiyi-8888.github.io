@@ -1,0 +1,20 @@
+title: 春和景明 · 个人文档
+email: ""
+description: >-
+  一个偏浅绿蓝色的个人技术文档站，用于整理个人研究、技术翻译与技术理解。
+baseurl: ""
+url: ""
+markdown: kramdown
+kramdown:
+  input: GFM
+theme: null
+plugins: []
+permalink: pretty
+
+collections: []
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "page"

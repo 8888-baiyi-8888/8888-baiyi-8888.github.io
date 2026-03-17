@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 }}">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="brand-block">
+        <a class="brand-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+        <p class="brand-subtitle">记录研究、整理翻译、沉淀理解</p>
+      </div>
+      <nav class="site-nav">
+        <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>首页</a>
+        <a href="{{ '/research/' | relative_url }}" {% if page.url contains '/research/' %}class="active"{% endif %}>个人研究</a>
+        <a href="{{ '/translation/' | relative_url }}" {% if page.url contains '/translation/' %}class="active"{% endif %}>技术翻译</a>
+        <a href="{{ '/understanding/' | relative_url }}" {% if page.url contains '/understanding/' %}class="active"{% endif %}>技术理解</a>
+        <a href="{{ '/about/' | relative_url }}" {% if page.url contains '/about/' %}class="active"{% endif %}>关于</a>
+      </nav>
+    </header>
+
+    <main class="page-main">
+      {{ content }}
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 {{ site.title }} · Built with Jekyll & GitHub Pages</p>
+    </footer>
+  </div>
+</body>
+</html>
