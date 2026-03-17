@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>关于站点</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="brand-block">
+        <a class="brand" href="../index.html">春和景明 · 个人文档</a>
+        <p class="brand-subtitle">记录研究、整理翻译、沉淀理解</p>
+      </div>
+      <nav class="site-nav">
+        <a href="../index.html">首页</a>
+        <a href="research.html">个人研究</a>
+        <a href="translation.html">技术翻译</a>
+        <a href="understanding.html">技术理解</a>
+        <a href="about.html" class="active">关于</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-banner card">
+        <span class="eyebrow">About</span>
+        <h1>关于这个 GitHub Pages 项目</h1>
+        <p>这是一个无需构建工具、可直接部署到 GitHub Pages 的静态站点项目。</p>
+      </section>
+
+      <section class="card prose-card">
+        <h2>适合放什么内容</h2>
+        <ul>
+          <li>个人研究：系统设计、实验记录、论文方案、架构草图。</li>
+          <li>技术翻译：外文博客、论文、官方文档、术语对照。</li>
+          <li>技术理解：原理拆解、个人总结、学习笔记、实践心得。</li>
+        </ul>
+
+        <h2>图片如何存放</h2>
+        <p>建议将图片放到 <code>assets/images/</code> 目录下。示例图已放在 <code>assets/images/samples/</code>。</p>
+
+        <h2>如何新增文章</h2>
+        <ol>
+          <li>在对应目录新增一个 HTML 文件，例如 <code>research/new-article.html</code>。</li>
+          <li>按照现有文章页面结构填写标题、日期、正文和图片。</li>
+          <li>在对应模块页面中增加一个文章卡片链接。</li>
+        </ol>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 个人文档站点 · About</p>
+    </footer>
+  </div>
+</body>
+</html>

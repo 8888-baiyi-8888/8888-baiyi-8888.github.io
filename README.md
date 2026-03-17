@@ -1,51 +1,96 @@
-﻿# BaiYi Notes
+# personal-docs-github-pages
 
-这是一个基于 GitHub Pages + Jekyll 的个人知识文档站点模板，适合持续记录：
+一个可直接部署到 GitHub Pages 的个人文档站点。
 
-- 论文阅读笔记
-- 个人技术文档
-- AI/自动化实验记录
-- 常用代码片段与长期知识整理
+## 站点模块
 
-## 已初始化内容
+- 个人研究
+- 技术翻译
+- 技术理解
 
-- 首页：用于展示站点定位、常用入口和当前维护重点
-- 文档目录：作为后续持续扩展的总入口
-- 论文阅读模板页：包含论文摘要、方法拆解、阅读结论等栏目
-- 技术文档模板页：包含技术主题结构、代码片段样例、元信息模板
-- 预设插图：已放入 `assets/images/`，后续可直接替换
-- 自定义样式：已覆盖默认主题，适合作为个人知识库长期维护
+## 风格说明
 
-## 目录结构
+整体采用浅绿、浅蓝、米白配色，视觉上偏“春和景明”。
+
+## 项目结构
 
 ```text
-.
-├── _config.yml
-├── _layouts/
-├── assets/
-│   ├── css/
-│   └── images/
-├── docs/
-│   ├── index.md
-│   ├── dev-workflow.md
-│   └── feature-examples.md
-└── index.md
+personal-docs-github-pages/
+├── index.html
+├── pages/
+│   ├── about.html
+│   ├── research.html
+│   ├── translation.html
+│   └── understanding.html
+├── research/
+│   ├── long-document-parsing.html
+│   └── agent-writing-pipeline.html
+├── translation/
+│   ├── context-engineering.html
+│   └── pageindex-intro.html
+├── understanding/
+│   ├── structured-output.html
+│   └── agent-evaluation.html
+└── assets/
+    ├── css/
+    │   └── style.css
+    ├── js/
+    │   └── site.js
+    └── images/
+        └── samples/
+            ├── hero-landscape.svg
+            └── doc-structure-sample.svg
 ```
 
 ## 本地预览
 
-如果本机已经安装 Ruby 和 Bundler，可以在项目根目录执行：
+直接双击 `index.html` 就能看。
 
-```bash
-bundle install
-bundle exec jekyll serve
+## 部署到 GitHub Pages
+
+### 方式一：仓库名为 `你的用户名.github.io`
+
+直接把全部文件推到仓库根目录即可。
+
+### 方式二：普通仓库
+
+1. 新建仓库，例如 `personal-docs`
+2. 将本项目文件推到仓库根目录
+3. 打开 GitHub 仓库设置
+4. 进入 `Pages`
+5. 在 `Build and deployment` 中选择：
+   - Source: `Deploy from a branch`
+   - Branch: `main`
+   - Folder: `/ (root)`
+6. 保存后等待 GitHub Pages 发布
+
+## 如何新增文章
+
+以“个人研究”为例：
+
+1. 新建文件：`research/your-article.html`
+2. 参考已有文章页面复制一份结构
+3. 在 `pages/research.html` 中新增入口卡片
+
+## 图片存储建议
+
+- 公共图片放：`assets/images/`
+- 首页和示例图放：`assets/images/samples/`
+- 后续也可以扩展为：
+
+```text
+assets/images/
+├── research/
+├── translation/
+├── understanding/
+└── samples/
 ```
 
-然后访问 `http://127.0.0.1:4000`。
+## 自定义建议
 
-## 后续建议
+您后续可以优先改这几个位置：
 
-- 按论文、专题或技术栈继续拆分 `docs/` 下的页面
-- 将占位 SVG 替换成你自己的论文封面、截图、流程图或思维导图
-- 补充 `papers`、`notes`、`reading-map` 等栏目
-- 如果后续内容增多，可以再升级为带搜索和分类的文档结构
+- `index.html`：首页标题、简介、入口文案
+- `pages/*.html`：模块页说明
+- `research/*.html`、`translation/*.html`、`understanding/*.html`：正文内容
+- `assets/css/style.css`：整体配色、圆角、阴影、字体大小
