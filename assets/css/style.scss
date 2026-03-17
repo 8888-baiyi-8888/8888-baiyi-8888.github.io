@@ -40,8 +40,8 @@ body {
   font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at top left, rgba(142, 191, 208, 0.18), transparent 24%),
-    radial-gradient(circle at top right, rgba(124, 175, 123, 0.16), transparent 26%),
+    radial-gradient(circle at top left, rgba(142, 191, 208, 0.24), transparent 24%),
+    radial-gradient(circle at top right, rgba(124, 175, 123, 0.22), transparent 26%),
     linear-gradient(180deg, var(--sky) 0%, var(--bg) 38%, var(--bg-warm) 100%);
 }
 
@@ -49,6 +49,27 @@ body {
 .main-content,
 .page-content {
   max-width: none !important;
+}
+
+header,
+section,
+footer,
+aside {
+  width: auto !important;
+  float: none !important;
+  position: static !important;
+}
+
+.page-shell > .sidebar,
+.page-shell > .content,
+.content > section,
+.content > header,
+.content > footer,
+.content > aside {
+  width: auto !important;
+  float: none !important;
+  position: static !important;
+  margin-left: 0 !important;
 }
 
 a {
@@ -71,7 +92,7 @@ a {
   padding: 14px 18px;
   border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 999px;
-  background: rgba(255, 255, 250, 0.68);
+  background: rgba(246, 252, 246, 0.82);
   backdrop-filter: blur(16px);
   box-shadow: var(--shadow-sm);
 }
@@ -152,10 +173,10 @@ a {
   gap: 28px;
   align-items: stretch;
   padding: 34px;
-  border: 1px solid rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.72);
   border-radius: var(--radius-xl);
   background:
-    linear-gradient(135deg, rgba(255, 255, 252, 0.9) 0%, rgba(243, 250, 243, 0.82) 56%, rgba(236, 247, 243, 0.86) 100%);
+    linear-gradient(135deg, rgba(252, 255, 252, 0.92) 0%, rgba(239, 249, 241, 0.9) 56%, rgba(231, 244, 247, 0.9) 100%);
   box-shadow: var(--shadow-md);
   overflow: hidden;
 }
@@ -279,7 +300,7 @@ a {
   padding: 28px;
   border: 1px solid rgba(255, 255, 255, 0.56);
   border-radius: 28px;
-  background: rgba(255, 255, 252, 0.7);
+  background: rgba(248, 253, 248, 0.78);
   box-shadow: var(--shadow-sm);
 }
 
@@ -321,7 +342,7 @@ a {
   border-radius: var(--radius-lg);
   border: 1px solid rgba(124, 175, 123, 0.14);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(244, 250, 243, 0.92) 100%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(238, 247, 241, 0.96) 100%);
   box-shadow: var(--shadow-sm);
 }
 
@@ -549,3 +570,5 @@ hr {
     width: 100%;
   }
 }
+
+
