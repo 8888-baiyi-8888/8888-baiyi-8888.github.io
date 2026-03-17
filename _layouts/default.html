@@ -10,32 +10,24 @@
   </head>
   <body>
     <div class="page-shell">
-      <aside class="sidebar">
-        <a class="brand" href="{{ '/' | relative_url }}">
-          <span class="brand-mark">BN</span>
-          <span class="brand-copy">
-            <strong>{{ site.title }}</strong>
-            <span>个人知识文档库</span>
-          </span>
-        </a>
+      <header class="site-topbar">
+        <div class="site-topbar-inner">
+          <a class="brand" href="{{ '/' | relative_url }}">
+            <span class="brand-mark">BN</span>
+            <span class="brand-copy">
+              <strong>{{ site.title }}</strong>
+              <span>个人知识文档库</span>
+            </span>
+          </a>
 
-        <nav class="nav-block">
-          <p>快速入口</p>
-          <a href="{{ '/' | relative_url }}">首页</a>
-          <a href="{{ '/docs/' | relative_url }}">文档目录</a>
-          <a href="{{ '/docs/dev-workflow/' | relative_url }}">论文阅读模板</a>
-          <a href="{{ '/docs/feature-examples/' | relative_url }}">技术文档模板</a>
-        </nav>
-
-        <section class="side-card">
-          <p>维护提示</p>
-          <ul>
-            <li>优先沉淀可复用认知，而不是零散收藏。</li>
-            <li>每篇文档尽量保留“主题、摘要、关键结论、待跟进”。</li>
-            <li>封面图、截图和流程图可直接替换 `assets/images/` 占位图。</li>
-          </ul>
-        </section>
-      </aside>
+          <nav class="top-nav" aria-label="主导航">
+            <a href="{{ '/' | relative_url }}">首页</a>
+            <a href="{{ '/docs/' | relative_url }}">文档目录</a>
+            <a href="{{ '/docs/dev-workflow/' | relative_url }}">论文阅读模板</a>
+            <a href="{{ '/docs/feature-examples/' | relative_url }}">技术文档模板</a>
+          </nav>
+        </div>
+      </header>
 
       <main class="content">
         {{ content }}
