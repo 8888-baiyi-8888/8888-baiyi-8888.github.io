@@ -51,16 +51,25 @@ layout: default
       <h2>最新研究</h2>
       <span class="panel-kicker">Recent</span>
     </div>
+    {% assign sorted_pages = site.pages | sort: "updated_at" | reverse %}
+    {% assign recent_count = 0 %}
     <ul class="soft-list">
-      {% assign recent_pages = site.pages | where_exp: "item", "item.updated_at != nil and item.layout != 'section' and item.url != page.url" | sort: "updated_at" | reverse %}
-      {% for item in recent_pages limit: 4 %}
-        <li>
-          <a href="{{ item.url | relative_url }}">
-            {% if item.module_title %}{{ item.module_title }}{% endif %}
-            {% if item.parent_title %} / {{ item.parent_title }}{% endif %}
-            {% if item.title %} / {{ item.title }}{% endif %}
-          </a>
-        </li>
+      {% for item in sorted_pages %}
+        {% if item.updated_at %}
+          {% if item.layout != 'section' and item.url != page.url %}
+            <li>
+              <a href="{{ item.url | relative_url }}">
+                {% if item.module_title %}{{ item.module_title }}{% endif %}
+                {% if item.parent_title %} / {{ item.parent_title }}{% endif %}
+                {% if item.title %} / {{ item.title }}{% endif %}
+              </a>
+            </li>
+            {% assign recent_count = recent_count | plus: 1 %}
+          {% endif %}
+        {% endif %}
+        {% if recent_count >= 4 %}
+          {% break %}
+        {% endif %}
       {% endfor %}
     </ul>
   </div>
