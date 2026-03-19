@@ -7,6 +7,7 @@ module_path: /translation/
 parent_title: LLM
 parent_path: /translation/llm/
 description: 对 Mitchell Hashimoto 文章《My AI Adoption Journey》的整篇中文整理，覆盖 Step 1 到 Step 6 及 Today。
+updated_at: 2026-03-19
 ---
 
 **原文信息**

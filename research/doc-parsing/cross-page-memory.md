@@ -7,6 +7,7 @@ module_path: /research/
 parent_title: 文档解析
 parent_path: /research/doc-parsing/
 description: 长文档解析中的跨页上下文建模思路。
+updated_at: 2026-03-17
 ---
 
 ## 核心想法

@@ -33,8 +33,10 @@ layout: default
 
 <section class="grid-two">
   <div class="card">
-    <span class="eyebrow">Focus</span>
-    <h2>写作方向</h2>
+    <div class="panel-head">
+      <h2>写作方向</h2>
+      <span class="panel-kicker">Focus</span>
+    </div>
     <p class="feature-copy">这里持续整理 AI 研究过程中的问题、判断和方法，不只记录结论，也保留推导路径与思考痕迹。</p>
     <div class="feature-tags">
       <span class="chip chip-soft">论文拆解</span>
@@ -45,13 +47,21 @@ layout: default
     <p class="feature-note">希望这里既能作为长期积累的知识花园，也能成为之后继续展开专题研究的起点。</p>
   </div>
   <div class="card">
-    <span class="eyebrow">Recent</span>
-    <h2>最新研究</h2>
+    <div class="panel-head">
+      <h2>最新研究</h2>
+      <span class="panel-kicker">Recent</span>
+    </div>
     <ul class="soft-list">
-      <li><a href="{{ '/translation/llm/my-ai-adoption-journey/' | relative_url }}">技术翻译 / LLM / My AI Adoption Journey：完整中文整理</a></li>
-      <li><a href="{{ '/research/agent-system/task-scheduling/' | relative_url }}">个人研究 / Agent 系统 / 任务调度与状态流转</a></li>
-      <li><a href="{{ '/understanding/agents/evaluation/' | relative_url }}">技术理解 / Agents / Agent 评估笔记</a></li>
-      <li><a href="{{ '/understanding/structured-output/structured-output-notes/' | relative_url }}">技术理解 / 结构化输出 / 结构化输出实践笔记</a></li>
+      {% assign recent_pages = site.pages | where_exp: "item", "item.updated_at and item.layout != 'section' and item.url != page.url" | sort: "updated_at" | reverse %}
+      {% for item in recent_pages limit: 4 %}
+        <li>
+          <a href="{{ item.url | relative_url }}">
+            {% if item.module_title %}{{ item.module_title }}{% endif %}
+            {% if item.parent_title %} / {{ item.parent_title }}{% endif %}
+            {% if item.title %} / {{ item.title }}{% endif %}
+          </a>
+        </li>
+      {% endfor %}
     </ul>
   </div>
 </section>

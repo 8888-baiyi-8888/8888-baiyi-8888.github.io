@@ -7,6 +7,7 @@ module_path: /research/
 parent_title: 文档解析
 parent_path: /research/doc-parsing/
 description: 对文档版面分析任务的基础理解与拆解。
+updated_at: 2026-03-15
 ---
 
 ## 1. 问题背景

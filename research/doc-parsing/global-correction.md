@@ -7,6 +7,7 @@ module_path: /research/
 parent_title: 文档解析
 parent_path: /research/doc-parsing/
 description: 通过全文一致性信息修正局部误判。
+updated_at: 2026-03-16
 ---
 
 ## 核心思路

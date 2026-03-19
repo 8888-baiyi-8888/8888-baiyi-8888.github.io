@@ -7,6 +7,7 @@ module_path: /research/
 parent_title: Agent 系统
 parent_path: /research/agent-system/
 description: 多任务执行与状态同步的设计思路。
+updated_at: 2026-03-19
 ---
 
 ## 说明
