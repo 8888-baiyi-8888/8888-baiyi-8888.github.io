@@ -180,12 +180,18 @@ code {
   position: sticky;
   top: 24px;
 }
-.doc-nav,
-.doc-toc {
+.doc-sidebar-panel {
   padding: 20px 22px;
+  max-height: calc(100vh - 32px);
+  overflow: auto;
 }
-.doc-toc {
-  margin-top: 16px;
+.doc-sidebar-section + .doc-sidebar-section {
+  margin-top: 18px;
+}
+.doc-sidebar-divider {
+  height: 1px;
+  margin: 18px 0;
+  background: rgba(207,229,224,0.95);
 }
 .doc-nav-label {
   margin: 0 0 12px;
@@ -193,7 +199,7 @@ code {
   font-weight: 800;
   color: var(--text);
 }
-.doc-nav .breadcrumb {
+.doc-sidebar-panel .breadcrumb {
   font-size: 0.98rem;
   line-height: 1.9;
 }
@@ -276,12 +282,13 @@ code {
   .hero-visual { margin-top: 24px; }
   .section-hero-top { flex-direction: column; }
   .panel-head { align-items: flex-start; flex-direction: column; gap: 8px; }
-  .doc-sidebar-inner { position: static; }
+  .doc-sidebar-inner { top: 16px; }
 }
 
 @media (max-width: 640px) {
   .site-shell { width: min(100vw - 20px, 1180px); }
-  .topbar, .hero, .article-header, .article-body, .module-card, .grid-two > .card, .section-hero, .doc-nav, .doc-toc { padding: 20px; }
+  .topbar, .hero, .article-header, .article-body, .module-card, .grid-two > .card, .section-hero, .doc-sidebar-panel { padding: 20px; }
   .brand a { font-size: 1.5rem; }
   .hero-desc, .page-desc { font-size: 1.05rem; }
+  .doc-sidebar-panel { max-height: calc(100vh - 24px); }
 }

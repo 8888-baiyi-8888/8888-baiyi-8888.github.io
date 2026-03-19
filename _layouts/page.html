@@ -27,25 +27,29 @@ layout: default
 <section class="doc-layout">
   <aside class="doc-sidebar">
     <div class="doc-sidebar-inner">
-      <nav class="doc-nav card">
-        <p class="doc-nav-label">页面导航</p>
-        <p class="breadcrumb">
-          <a href="{{ '/' | relative_url }}">首页</a>
-          {% if page.module_path and page.module_title %}
-            / <a href="{{ page.module_path | relative_url }}">{{ page.module_title }}</a>
-          {% endif %}
-          {% if page.parent_path and page.parent_title %}
-            / <a href="{{ page.parent_path | relative_url }}">{{ page.parent_title }}</a>
-          {% endif %}
-          / <span>{{ page.title }}</span>
-        </p>
-      </nav>
+      <nav class="doc-sidebar-panel card" id="doc-toc">
+        <div class="doc-sidebar-section">
+          <p class="doc-nav-label">页面导航</p>
+          <p class="breadcrumb">
+            <a href="{{ '/' | relative_url }}">首页</a>
+            {% if page.module_path and page.module_title %}
+              / <a href="{{ page.module_path | relative_url }}">{{ page.module_title }}</a>
+            {% endif %}
+            {% if page.parent_path and page.parent_title %}
+              / <a href="{{ page.parent_path | relative_url }}">{{ page.parent_title }}</a>
+            {% endif %}
+            / <span>{{ page.title }}</span>
+          </p>
+        </div>
 
-      <nav class="doc-toc card" id="doc-toc">
-        <p class="doc-nav-label">文章目录</p>
-        <ul class="doc-toc-list" id="doc-toc-list">
-          <li class="doc-toc-empty">正在生成目录...</li>
-        </ul>
+        <div class="doc-sidebar-divider"></div>
+
+        <div class="doc-sidebar-section">
+          <p class="doc-nav-label">文章目录</p>
+          <ul class="doc-toc-list" id="doc-toc-list">
+            <li class="doc-toc-empty">正在生成目录...</li>
+          </ul>
+        </div>
       </nav>
     </div>
   </aside>
