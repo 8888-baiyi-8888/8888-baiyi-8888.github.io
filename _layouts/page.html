@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-{% assign crumbs = page.url | split: '/' %}
 <section class="article-header card">
   {% if page.parent_title or page.module_title %}
   <div class="meta-line">
@@ -25,6 +24,86 @@ layout: default
   {% endif %}
 </section>
 
-<article class="article-body card prose">
-  {{ content }}
-</article>
+<section class="doc-layout">
+  <aside class="doc-sidebar">
+    <div class="doc-sidebar-inner">
+      <nav class="doc-nav card">
+        <p class="doc-nav-label">页面导航</p>
+        <p class="breadcrumb">
+          <a href="{{ '/' | relative_url }}">首页</a>
+          {% if page.module_path and page.module_title %}
+            / <a href="{{ page.module_path | relative_url }}">{{ page.module_title }}</a>
+          {% endif %}
+          {% if page.parent_path and page.parent_title %}
+            / <a href="{{ page.parent_path | relative_url }}">{{ page.parent_title }}</a>
+          {% endif %}
+          / <span>{{ page.title }}</span>
+        </p>
+      </nav>
+
+      <nav class="doc-toc card" id="doc-toc">
+        <p class="doc-nav-label">文章目录</p>
+        <ul class="doc-toc-list" id="doc-toc-list">
+          <li class="doc-toc-empty">正在生成目录...</li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <article class="article-body card prose" id="article-content">
+    {{ content }}
+  </article>
+</section>
+
+<script>
+  (function () {
+    var content = document.getElementById('article-content');
+    var toc = document.getElementById('doc-toc');
+    var tocList = document.getElementById('doc-toc-list');
+
+    if (!content || !toc || !tocList) return;
+
+    var headings = content.querySelectorAll('h2, h3');
+    if (!headings.length) {
+      toc.style.display = 'none';
+      return;
+    }
+
+    var usedIds = {};
+    tocList.innerHTML = '';
+
+    for (var i = 0; i < headings.length; i++) {
+      var heading = headings[i];
+      var text = (heading.textContent || '').trim();
+      if (!text) continue;
+
+      if (!heading.id) {
+        var baseId = text.toLowerCase()
+          .replace(/[^a-z0-9\u4e00-\u9fa5\s-]/g, '')
+          .trim()
+          .replace(/\s+/g, '-');
+
+        if (!baseId) baseId = 'section';
+
+        var finalId = baseId;
+        var suffix = 2;
+        while (document.getElementById(finalId) || usedIds[finalId]) {
+          finalId = baseId + '-' + suffix;
+          suffix += 1;
+        }
+        heading.id = finalId;
+        usedIds[finalId] = true;
+      }
+
+      var li = document.createElement('li');
+      li.className = heading.tagName.toLowerCase() === 'h3' ? 'toc-level-3' : 'toc-level-2';
+
+      var a = document.createElement('a');
+      a.href = '#' + heading.id;
+      a.textContent = text;
+
+      li.appendChild(a);
+      tocList.appendChild(li);
+    }
+  })();
+</script>
