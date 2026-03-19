@@ -29,7 +29,7 @@ layout: default
 
   {% if page.auto_recent %}
     {% assign recent_limit = page.recent_limit | default: 3 %}
-    {% assign recent_pages = site.pages | where_exp: "item", "item.updated_at and item.url != page.url and item.module_path == page.module_path and item.layout != 'section'" | sort: "updated_at" | reverse %}
+    {% assign recent_pages = site.pages | where_exp: "item", "item.updated_at != nil and item.url != page.url and item.module_path == page.module_path and item.layout != 'section'" | sort: "updated_at" | reverse %}
     {% if recent_pages.size > 0 %}
       <h2>最近更新</h2>
       <ul>

@@ -52,7 +52,7 @@ layout: default
       <span class="panel-kicker">Recent</span>
     </div>
     <ul class="soft-list">
-      {% assign recent_pages = site.pages | where_exp: "item", "item.updated_at and item.layout != 'section' and item.url != page.url" | sort: "updated_at" | reverse %}
+      {% assign recent_pages = site.pages | where_exp: "item", "item.updated_at != nil and item.layout != 'section' and item.url != page.url" | sort: "updated_at" | reverse %}
       {% for item in recent_pages limit: 4 %}
         <li>
           <a href="{{ item.url | relative_url }}">
