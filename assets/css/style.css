@@ -249,10 +249,16 @@ code {
   align-items: flex-start;
   gap: 8px;
 }
+.toc-toggle-spacer,
 .toc-toggle {
   width: 20px;
   min-width: 20px;
   height: 20px;
+}
+.toc-toggle-spacer {
+  display: inline-block;
+}
+.toc-toggle {
   padding: 0;
   border: 0;
   border-radius: 6px;

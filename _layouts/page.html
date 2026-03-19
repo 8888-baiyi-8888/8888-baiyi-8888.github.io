@@ -93,6 +93,11 @@ layout: default
         var row = document.createElement('div');
         row.className = 'toc-row';
 
+        var spacer = document.createElement('span');
+        spacer.className = 'toc-toggle-spacer';
+        spacer.setAttribute('aria-hidden', 'true');
+        row.appendChild(spacer);
+
         var link = document.createElement('a');
         link.href = '#' + heading.id;
         link.textContent = text;
@@ -134,7 +139,7 @@ layout: default
       toggle.className = 'toc-toggle';
       toggle.setAttribute('aria-expanded', 'true');
       toggle.textContent = '−';
-      rowEl.insertBefore(toggle, rowEl.firstChild);
+      rowEl.replaceChild(toggle, rowEl.querySelector('.toc-toggle-spacer'));
 
       toggle.addEventListener('click', function (event) {
         var btn = event.currentTarget;
