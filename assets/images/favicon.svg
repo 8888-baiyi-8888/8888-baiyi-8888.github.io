@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="BY favicon">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#86d8d0"/>
+      <stop offset="100%" stop-color="#4aa9b3"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#2d6f76" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="url(#bg)"/>
+  <circle cx="20" cy="18" r="14" fill="rgba(255,255,255,0.14)"/>
+  <circle cx="49" cy="50" r="16" fill="rgba(255,255,255,0.10)"/>
+  <g filter="url(#shadow)" fill="#ffffff">
+    <path d="M16 15h12.8c7 0 11.4 3.2 11.4 8.6 0 3.5-1.8 5.9-5 7 4 1 6.3 3.7 6.3 7.8 0 6.1-4.8 10.2-12.9 10.2H16V15zm11.3 13.2c4 0 6.1-1.3 6.1-4 0-2.5-2.1-3.8-5.8-3.8h-4.4v7.8h4.1zm0.8 15.1c4.3 0 6.7-1.5 6.7-4.5 0-3-2.4-4.4-6.9-4.4h-4.7v8.9h4.9z"/>
+    <path d="M42.8 15h7.9l5.5 10.1L61.8 15H69l-9.3 16v17.6h-6.9V31z" transform="translate(-8.5 0)"/>
+  </g>
+</svg>

@@ -166,6 +166,34 @@ code {
   gap: 10px;
   margin: 20px 0 18px;
 }
+.recent-list {
+  margin-top: 4px;
+}
+.recent-list-inner {
+  padding-left: 0;
+  list-style: none;
+}
+.recent-list-inner li {
+  margin: 0;
+  border-top: 1px solid rgba(207,229,224,0.8);
+}
+.recent-list-inner li:first-child {
+  border-top: 0;
+}
+.recent-list-inner a {
+  display: block;
+  padding: 14px 0;
+}
+.recent-list-inner strong {
+  display: block;
+  margin-top: 6px;
+  color: var(--text);
+  font-size: 1.02rem;
+}
+.recent-path {
+  color: var(--primary-deep);
+  font-size: 0.94rem;
+}
 .module-card h2 { margin-top: 0; font-size: 2rem; color: var(--text); }
 .module-card p { color: var(--muted); line-height: 1.8; }
 .article-header, .article-body { padding: 28px 30px; }
@@ -281,6 +309,9 @@ code {
   font-size: 1.12rem;
   max-width: 52rem;
 }
+.section-hero .breadcrumb {
+  margin-top: 10px;
+}
 .meta-line { display: flex; gap: 10px; flex-wrap: wrap; }
 .chip {
   display: inline-block;
@@ -301,9 +332,44 @@ code {
   line-height: 1.9;
   font-size: 1.08rem;
 }
+.prose > :first-child,
+.prose > h2:first-child,
+.prose > h3:first-child,
+.prose > p:first-child,
+.prose > ul:first-child,
+.prose > ol:first-child,
+.prose > blockquote:first-child {
+  margin-top: 0;
+}
 .prose h2, .prose h3 { margin-top: 1.8em; }
 .prose ul, .soft-list { padding-left: 1.3rem; }
 .soft-list li, .prose li { margin: 0.55rem 0; }
+.section-recent-list {
+  padding-left: 0;
+  list-style: none;
+}
+.section-recent-list li {
+  margin: 0;
+  border-top: 1px solid rgba(207,229,224,0.8);
+}
+.section-recent-list li:first-child {
+  border-top: 0;
+}
+.section-recent-list a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+}
+.section-recent-list strong {
+  color: var(--text);
+}
+.section-recent-list span {
+  color: var(--muted);
+  font-size: 0.94rem;
+  white-space: nowrap;
+}
 .footer {
   margin-top: 26px;
   padding: 20px 8px;
@@ -319,6 +385,7 @@ code {
   .section-hero-top { flex-direction: column; }
   .panel-head { align-items: flex-start; flex-direction: column; gap: 8px; }
   .doc-sidebar { position: static; }
+  .section-recent-list a { align-items: flex-start; flex-direction: column; gap: 4px; }
 }
 
 @media (max-width: 640px) {
