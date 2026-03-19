@@ -16,16 +16,6 @@ layout: default
   </div>
 </section>
 
-<section class="card author-card">
-  <p class="eyebrow">Author</p>
-  <h2>{{ site.author.name }}</h2>
-  <p class="author-bio">{{ site.author.bio }}</p>
-  <p class="author-meta">
-    {% if site.author.github %}<a href="https://github.com/{{ site.author.github }}">GitHub</a>{% endif %}
-    {% if site.author.location %}<span>{{ site.author.location }}</span>{% endif %}
-  </p>
-</section>
-
 <section class="grid-three">
   <a class="card module-card" href="{{ '/research/' | relative_url }}">
     <h2>个人研究</h2>
@@ -43,13 +33,16 @@ layout: default
 
 <section class="grid-two">
   <div class="card">
-    <h2>目录组织方式</h2>
-    <p>现在支持“模块 → 父目录 → 文章”的三级结构。您只要新建一个文件夹，并在其中放一个 <code>index.md</code>，它就能作为父目录页。</p>
-    <ul class="soft-list">
-      <li>research/xxx/index.md：研究专题目录</li>
-      <li>translation/xxx/index.md：翻译专题目录</li>
-      <li>understanding/xxx/index.md：理解专题目录</li>
-    </ul>
+    <span class="eyebrow">Focus</span>
+    <h2>写作方向</h2>
+    <p class="feature-copy">这里持续整理 AI 研究过程中的问题、判断和方法，不只记录结论，也保留推导路径与思考痕迹。</p>
+    <div class="feature-tags">
+      <span class="chip chip-soft">论文拆解</span>
+      <span class="chip chip-soft">Agent 系统</span>
+      <span class="chip chip-soft">结构化输出</span>
+      <span class="chip chip-soft">技术翻译</span>
+    </div>
+    <p class="feature-note">希望这里既能作为长期积累的知识花园，也能成为之后继续展开专题研究的起点。</p>
   </div>
   <div class="card">
     <h2>示例专题</h2>
