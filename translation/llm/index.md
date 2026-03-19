@@ -11,4 +11,4 @@ description: 与大模型、上下文工程、Agent 相关的翻译内容。
 
 ## 本专题文章
 
-- [Context Engineering 阅读笔记](/translation/llm/context-engineering/)
+- [My AI Adoption Journey：完整中文整理](/translation/llm/my-ai-adoption-journey/)
