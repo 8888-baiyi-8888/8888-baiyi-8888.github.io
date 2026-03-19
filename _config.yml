@@ -1,5 +1,10 @@
-title: 春和景明 · 个人文档
+title: 一个立志成为AI第一人的个人文档
 description: 个人研究、技术翻译、技术理解
+author:
+  name: Baiyi
+  bio: 持续研究 AI，整理技术翻译，并沉淀自己的理解与实践。
+  github: 8888-baiyi-8888
+  location: China
 baseurl: ""
 url: ""
 markdown: kramdown

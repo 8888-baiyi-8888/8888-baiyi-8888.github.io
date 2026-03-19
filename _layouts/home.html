@@ -16,6 +16,16 @@ layout: default
   </div>
 </section>
 
+<section class="card author-card">
+  <p class="eyebrow">Author</p>
+  <h2>{{ site.author.name }}</h2>
+  <p class="author-bio">{{ site.author.bio }}</p>
+  <p class="author-meta">
+    {% if site.author.github %}<a href="https://github.com/{{ site.author.github }}">GitHub</a>{% endif %}
+    {% if site.author.location %}<span>{{ site.author.location }}</span>{% endif %}
+  </p>
+</section>
+
 <section class="grid-three">
   <a class="card module-card" href="{{ '/research/' | relative_url }}">
     <h2>个人研究</h2>

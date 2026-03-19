@@ -5,6 +5,13 @@ permalink: /about/
 description: 站点说明、维护方式与写作约定。
 ---
 
+## 作者信息
+
+- 名称：{{ site.author.name }}
+- 简介：{{ site.author.bio }}
+- GitHub：{% if site.author.github %}[{{ site.author.github }}](https://github.com/{{ site.author.github }}){% endif %}
+- 所在地：{{ site.author.location }}
+
 ## 站点定位
 
 这是一个用于长期维护的个人技术文档站，内容分为三大模块：

@@ -106,6 +106,27 @@ code {
   border-radius: 24px;
 }
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 22px; }
+.author-card {
+  margin-top: 24px;
+  padding: 28px 30px;
+}
+.author-card h2 {
+  margin: 16px 0 10px;
+  font-size: 2rem;
+}
+.author-bio {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 1.06rem;
+}
+.author-meta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  color: var(--muted);
+}
 .btn {
   display: inline-block;
   padding: 14px 22px;
@@ -177,7 +198,7 @@ code {
 
 @media (max-width: 640px) {
   .site-shell { width: min(100vw - 20px, 1180px); }
-  .topbar, .hero, .article-header, .article-body, .module-card { padding: 20px; }
+  .topbar, .hero, .article-header, .article-body, .module-card, .author-card { padding: 20px; }
   .brand a { font-size: 1.5rem; }
   .hero-desc, .page-desc { font-size: 1.05rem; }
 }
