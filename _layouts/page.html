@@ -93,12 +93,8 @@ layout: default
         var row = document.createElement('div');
         row.className = 'toc-row';
 
-        var spacer = document.createElement('span');
-        spacer.className = 'toc-toggle-spacer';
-        spacer.setAttribute('aria-hidden', 'true');
-        row.appendChild(spacer);
-
         var link = document.createElement('a');
+        link.className = 'toc-main-link';
         link.href = '#' + heading.id;
         link.textContent = text;
         row.appendChild(link);
@@ -138,8 +134,9 @@ layout: default
       toggle.type = 'button';
       toggle.className = 'toc-toggle';
       toggle.setAttribute('aria-expanded', 'true');
-      toggle.textContent = '−';
-      rowEl.replaceChild(toggle, rowEl.querySelector('.toc-toggle-spacer'));
+      toggle.setAttribute('aria-label', '折叠子目录');
+      toggle.innerHTML = '<span class="toc-toggle-icon"></span>';
+      rowEl.appendChild(toggle);
 
       toggle.addEventListener('click', function (event) {
         var btn = event.currentTarget;
@@ -147,7 +144,7 @@ layout: default
         var list = parent.querySelector('.doc-toc-sublist');
         var expanded = btn.getAttribute('aria-expanded') === 'true';
         btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-        btn.textContent = expanded ? '+' : '−';
+        btn.setAttribute('aria-label', expanded ? '展开子目录' : '折叠子目录');
         list.style.display = expanded ? 'none' : 'block';
         parent.classList.toggle('is-collapsed', expanded);
       });
