@@ -61,6 +61,7 @@ layout: default
 
     var usedIds = {};
     tocList.innerHTML = '';
+    var currentGroup = null;
 
     for (var i = 0; i < headings.length; i++) {
       var heading = headings[i];
@@ -85,15 +86,66 @@ layout: default
         usedIds[finalId] = true;
       }
 
-      var li = document.createElement('li');
-      li.className = heading.tagName.toLowerCase() === 'h3' ? 'toc-level-3' : 'toc-level-2';
+      if (heading.tagName.toLowerCase() === 'h2') {
+        var li = document.createElement('li');
+        li.className = 'toc-level-2';
 
-      var a = document.createElement('a');
-      a.href = '#' + heading.id;
-      a.textContent = text;
+        var row = document.createElement('div');
+        row.className = 'toc-row';
 
-      li.appendChild(a);
-      tocList.appendChild(li);
+        var link = document.createElement('a');
+        link.href = '#' + heading.id;
+        link.textContent = text;
+        row.appendChild(link);
+
+        var childList = document.createElement('ul');
+        childList.className = 'doc-toc-sublist';
+
+        li.appendChild(row);
+        li.appendChild(childList);
+        tocList.appendChild(li);
+        currentGroup = { item: li, list: childList, count: 0 };
+        continue;
+      }
+
+      if (heading.tagName.toLowerCase() === 'h3' && currentGroup) {
+        var childItem = document.createElement('li');
+        childItem.className = 'toc-level-3';
+
+        var childLink = document.createElement('a');
+        childLink.href = '#' + heading.id;
+        childLink.textContent = text;
+
+        childItem.appendChild(childLink);
+        currentGroup.list.appendChild(childItem);
+        currentGroup.count += 1;
+      }
+    }
+
+    var groups = tocList.querySelectorAll('.toc-level-2');
+    for (var j = 0; j < groups.length; j++) {
+      var group = groups[j];
+      var sublist = group.querySelector('.doc-toc-sublist');
+      var rowEl = group.querySelector('.toc-row');
+      if (!sublist || !rowEl || !sublist.children.length) continue;
+
+      var toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'toc-toggle';
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.textContent = '−';
+      rowEl.insertBefore(toggle, rowEl.firstChild);
+
+      toggle.addEventListener('click', function (event) {
+        var btn = event.currentTarget;
+        var parent = btn.parentNode.parentNode;
+        var list = parent.querySelector('.doc-toc-sublist');
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        btn.textContent = expanded ? '+' : '−';
+        list.style.display = expanded ? 'none' : 'block';
+        parent.classList.toggle('is-collapsed', expanded);
+      });
     }
   })();
 </script>
