@@ -1,21 +1,29 @@
 ---
 layout: default
 ---
-<section class="article-header card">
-  <div class="meta-line">
-    {% if page.module_title %}<span class="chip">{{ page.module_title }}</span>{% endif %}
-    {% if page.parent_title %}<span class="chip">{{ page.parent_title }}</span>{% endif %}
-    <span class="chip chip-soft">目录页</span>
+<section class="section-hero card">
+  <div class="section-hero-top">
+    <div class="meta-line">
+      {% if page.module_title %}<span class="chip">{{ page.module_title }}</span>{% endif %}
+      {% if page.parent_title and page.parent_title != page.title %}<span class="chip chip-soft">{{ page.parent_title }}</span>{% endif %}
+      <span class="chip chip-soft">目录页</span>
+    </div>
+    <p class="breadcrumb">
+      <a href="{{ '/' | relative_url }}">首页</a>
+      {% if page.module_path and page.module_title %}
+        / <a href="{{ page.module_path | relative_url }}">{{ page.module_title }}</a>
+      {% endif %}
+      {% if page.parent_title and page.parent_title != page.title and page.parent_path %}
+        / <a href="{{ page.parent_path | relative_url }}">{{ page.parent_title }}</a>
+      {% endif %}
+    </p>
   </div>
-  <h1>{{ page.title }}</h1>
-  {% if page.description %}<p class="page-desc">{{ page.description }}</p>{% endif %}
-  <p class="breadcrumb">
-    <a href="{{ '/' | relative_url }}">首页</a>
-    {% if page.module_path and page.module_title %}
-      / <a href="{{ page.module_path | relative_url }}">{{ page.module_title }}</a>
-    {% endif %}
-    / <span>{{ page.title }}</span>
-  </p>
+  <div class="section-hero-main">
+    <div>
+      <h1>{{ page.title }}</h1>
+      {% if page.description %}<p class="section-desc">{{ page.description }}</p>{% endif %}
+    </div>
+  </div>
 </section>
 
 <section class="article-body card prose">
