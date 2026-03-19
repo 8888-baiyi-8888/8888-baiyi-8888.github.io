@@ -9,16 +9,18 @@ parent_path: /translation/llm/
 description: 对 Mitchell Hashimoto 文章《My AI Adoption Journey》的整篇中文整理，覆盖 Step 1 到 Step 6 及 Today。
 ---
 
-## 原文信息
+**原文信息**
 
-- 标题：*My AI Adoption Journey*
-- 作者：Mitchell Hashimoto
-- 发布时间：2026 年 2 月 5 日
-- 原文链接：<https://mitchellh.com/writing/my-ai-adoption-journey>
+> 标题：*My AI Adoption Journey*  
+> 作者：Mitchell Hashimoto  
+> 发布时间：2026 年 2 月 5 日  
+> 原文链接：<https://mitchellh.com/writing/my-ai-adoption-journey>
 
-## 阅读说明
+**阅读说明**
 
-这是一篇面向知识库使用场景的中文整理稿，尽量贴近原文叙述视角与行文逻辑，以保证中文表达自然为主，不额外加入无关分析。
+> 这是一篇面向知识库使用场景的中文整理稿，尽量贴近原文叙述视角与行文逻辑，以保证中文表达自然为主，不额外加入无关分析。
+
+---
 
 ## Step 1：放下聊天框
 
