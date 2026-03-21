@@ -11,5 +11,4 @@ description: 关于 Agent 构建、工具调用与评估的理解笔记。
 
 ## 本专题文章
 
-- [Agent 评估笔记](/understanding/agents/evaluation/)
 - [上下文工程与上下文压缩策略](/understanding/agents/context-engineering-notes/)
