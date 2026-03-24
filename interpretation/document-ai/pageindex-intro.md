@@ -1,11 +1,11 @@
 ---
 layout: page
 title: PageIndex Intro 翻译示例
-permalink: /translation/document-ai/pageindex-intro/
-module_title: 技术翻译
-module_path: /translation/
+permalink: /interpretation/document-ai/pageindex-intro/
+module_title: 技术解读
+module_path: /interpretation/
 parent_title: Document AI
-parent_path: /translation/document-ai/
+parent_path: /interpretation/document-ai/
 description: 对 PageIndex 相关文章的翻译示例。
 updated_at: 2026-03-17
 ---

@@ -1,11 +1,11 @@
 ---
 layout: page
 title: My AI Adoption Journey：完整中文整理
-permalink: /translation/llm/my-ai-adoption-journey/
-module_title: 技术翻译
-module_path: /translation/
+permalink: /interpretation/llm/my-ai-adoption-journey/
+module_title: 技术解读
+module_path: /interpretation/
 parent_title: LLM
-parent_path: /translation/llm/
+parent_path: /interpretation/llm/
 description: 对 Mitchell Hashimoto 文章《My AI Adoption Journey》的整篇中文整理，覆盖 Step 1 到 Step 6 及 Today。
 updated_at: 2026-03-19
 ---

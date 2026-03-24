@@ -17,14 +17,14 @@ description: 站点说明、维护方式与写作约定。
 这是一个用于长期维护的个人技术文档站，内容分为三大模块：
 
 - 个人研究
-- 技术翻译
+- 技术解读
 - 技术理解
 
 ## 目录组织方式
 
 站点支持三级组织结构：
 
-- 模块：`research/`、`translation/`、`understanding/`
+- 模块：`research/`、`interpretation/`、`understanding/`
 - 父目录：模块下的专题文件夹，例如 `research/doc-parsing/`
 - 文章：父目录中的普通 `.md` 文件
 
@@ -50,6 +50,6 @@ research/
 
 ```text
 assets/images/research/doc-parsing/
-assets/images/translation/llm/
+assets/images/interpretation/llm/
 assets/images/understanding/structured-output/
 ```

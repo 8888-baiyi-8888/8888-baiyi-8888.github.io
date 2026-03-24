@@ -13,12 +13,12 @@
     <header class="topbar">
       <div class="brand">
         <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
-        <p>记录研究、整理翻译、沉淀理解</p>
+        <p>记录研究、技术解读、沉淀理解</p>
       </div>
       <nav class="nav">
         <a href="{{ '/' | relative_url }}" class="{% if page.url == '/' %}active{% endif %}">首页</a>
         <a href="{{ '/research/' | relative_url }}" class="{% if page.url contains '/research/' %}active{% endif %}">个人研究</a>
-        <a href="{{ '/translation/' | relative_url }}" class="{% if page.url contains '/translation/' %}active{% endif %}">技术翻译</a>
+        <a href="{{ '/interpretation/' | relative_url }}" class="{% if page.url contains '/interpretation/' %}active{% endif %}">技术解读</a>
         <a href="{{ '/understanding/' | relative_url }}" class="{% if page.url contains '/understanding/' %}active{% endif %}">技术理解</a>
         <a href="{{ '/about/' | relative_url }}" class="{% if page.url contains '/about/' %}active{% endif %}">关于</a>
       </nav>
