@@ -1,12 +1,12 @@
 ---
 layout: page
-title: Harness Engineering 总结
-permalink: /understanding/agents/harness-engineering-summary/
-module_title: 技术理解
-module_path: /understanding/
+title: Improving Deep Agents with harness engineering总结
+permalink: /interpretation/agents/improving-deep-agents-with-harness-engineering-summary/
+module_title: 技术解读
+module_path: /interpretation/
 parent_title: Agents
-parent_path: /understanding/agents/
-description: 关于 Agent 中 Harness Engineering 的目标、常见改进手段与工程启发总结。
+parent_path: /interpretation/agents/
+description: 对 Harness Engineering 的核心目标、常见改进手段与工程启发的中文整理。
 updated_at: 2026-03-26
 ---
 
