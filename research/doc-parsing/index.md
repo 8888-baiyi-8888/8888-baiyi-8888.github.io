@@ -11,6 +11,7 @@ description: 长文档解析、版面分析、跨页结构恢复相关内容。
 
 ## 本专题文章
 
+- [标准 PDF 高精度结构化提取系统设计](/research/doc-parsing/standard-pdf-structured-extraction/)
 - [版面分析基础](/research/doc-parsing/layout-analysis/)
 - [跨页记忆机制](/research/doc-parsing/cross-page-memory/)
 - [全局一致性修正思路](/research/doc-parsing/global-correction/)
