@@ -70,15 +70,17 @@ layout: default
       </select>
     </div>
     <div class="thoughts-list" id="thoughts-list">
-      {% for fragment in fragments limit: 3 %}
+      {% for fragment in fragments %}
         <article class="thought-card" data-tags="{{ fragment.tags | join: '|' }}" data-created-at="{{ fragment.created_at }}" data-status="{{ fragment.status }}">
           <h3>{{ fragment.title }}</h3>
           <p>{{ fragment.summary }}</p>
         </article>
       {% endfor %}
     </div>
-    <div class="thoughts-more">
-      <a class="btn btn-secondary" href="{{ '/cognitive-fragments/' | relative_url }}">查看更多</a>
+    <div class="thoughts-pagination" id="thoughts-pagination">
+      <button type="button" class="thoughts-page-btn" id="thoughts-prev">上一页</button>
+      <span class="thoughts-page-info" id="thoughts-page-info">1 / 1</span>
+      <button type="button" class="thoughts-page-btn" id="thoughts-next">下一页</button>
     </div>
   </div>
   <div class="card">
@@ -119,37 +121,81 @@ layout: default
     var desktopFilter = document.getElementById('thought-tag-filter');
     var mobileFilter = document.getElementById('thought-tag-filter-mobile');
     var list = document.getElementById('thoughts-list');
+    var prevBtn = document.getElementById('thoughts-prev');
+    var nextBtn = document.getElementById('thoughts-next');
+    var pageInfo = document.getElementById('thoughts-page-info');
     if (!list) return;
+    var pageSize = 3;
+    var currentPage = 1;
 
     function syncFilters(value, source) {
       if (desktopFilter && source !== desktopFilter) desktopFilter.value = value;
       if (mobileFilter && source !== mobileFilter) mobileFilter.value = value;
     }
 
-    function applyFilter(value) {
-      var cards = list.querySelectorAll('.thought-card');
-
-      cards.forEach(function (card) {
+    function getFilteredCards(value) {
+      var cards = Array.prototype.slice.call(list.querySelectorAll('.thought-card'));
+      return cards.filter(function (card) {
         var tags = (card.getAttribute('data-tags') || '').split('|');
-        var visible = !value || tags.indexOf(value) !== -1;
-        card.hidden = !visible;
+        return !value || tags.indexOf(value) !== -1;
       });
+    }
+
+    function renderPage(value) {
+      var allCards = Array.prototype.slice.call(list.querySelectorAll('.thought-card'));
+      var filteredCards = getFilteredCards(value);
+      var totalPages = Math.max(1, Math.ceil(filteredCards.length / pageSize));
+
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+
+      var start = (currentPage - 1) * pageSize;
+      var end = start + pageSize;
+
+      allCards.forEach(function (card) {
+        card.hidden = true;
+      });
+
+      filteredCards.slice(start, end).forEach(function (card) {
+        card.hidden = false;
+      });
+
+      if (pageInfo) pageInfo.textContent = totalPages === 0 ? '0 / 0' : (currentPage + ' / ' + totalPages);
+      if (prevBtn) prevBtn.disabled = currentPage <= 1;
+      if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
     }
 
     function bindFilter(filter) {
       if (!filter) return;
       filter.addEventListener('change', function () {
         var value = filter.value;
+        currentPage = 1;
         syncFilters(value, filter);
-        applyFilter(value);
+        renderPage(value);
       });
     }
 
     bindFilter(desktopFilter);
     bindFilter(mobileFilter);
 
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function () {
+        var value = (desktopFilter && desktopFilter.value) || (mobileFilter && mobileFilter.value) || '';
+        currentPage -= 1;
+        renderPage(value);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function () {
+        var value = (desktopFilter && desktopFilter.value) || (mobileFilter && mobileFilter.value) || '';
+        currentPage += 1;
+        renderPage(value);
+      });
+    }
+
     var initialValue = (desktopFilter && desktopFilter.value) || (mobileFilter && mobileFilter.value) || '';
     syncFilters(initialValue, null);
-    applyFilter(initialValue);
+    renderPage(initialValue);
   })();
 </script>
