@@ -79,7 +79,7 @@ updated_at: 2026-04-01
 DocumentInput
   -> RawPage[]
   -> PageLayoutResult
-  -> Enhanced Candidates
+  -> Candidate Objects
   -> Globally Corrected Objects
   -> SemanticBlock[]
   -> SectionTree / TableObjects / FigureObjects
@@ -266,7 +266,11 @@ class RawPage:
 
 ### 5.3 页内结构理解层
 
-这一层以 MinerU 作为底座，用于完成：
+这一层负责把原始对象提取层输出的页面对象，进一步组织为可用于后续增强与校正的页内结构结果。
+
+在工程实现上，这一层可以直接基于原始 PDF 对象自行构建，也可以接入 MinerU 一类现成版面分析结果作为参考实现或外部底座；无论采用哪种实现方式，对外都应收敛为统一的页内结构接口。
+
+该层用于完成：
 
 - 页面候选区域划分
 - 页面列结构识别
@@ -283,7 +287,7 @@ class RawPage:
 
 #### 5.3.1 基础输入约定
 
-建议只依赖两类核心输入：
+如果页内结构理解层接入 MinerU 结果，建议优先依赖两类核心输入：
 
 1. `*_content_list.json`
 2. `*_model.json`
@@ -293,11 +297,13 @@ class RawPage:
 - `content_list` 作为文本与基础块信息主来源，至少可用 `type`、`text`、`text_level`、`bbox`、`page_idx`
 - `model.json` 作为几何版面辅助来源，主要提供页面级 `layout_dets`
 
+如果不接入 MinerU，而是直接基于原始 PDF 对象构建页内理解层，则也应先将原始对象规整到与上述输入等价的统一中间表示，再进入后续区域划分、列识别与顺序重建流程。
+
 #### 5.3.2 页面区域划分模块
 
 模块定位：
 
-MinerU 已经能输出复杂布局解析结果，因此这一层不从 PDF 原始对象零开始切页面，而是以 MinerU 的内容块和布局检测框为基础，做页面区域再组织，把离散 block 重组为 `PageRegion`。
+当接入 MinerU 时，这一层不需要从 PDF 原始对象零开始切页面，而是以 MinerU 的内容块和布局检测框为基础，做页面区域再组织，把离散 block 重组为 `PageRegion`。如果未接入 MinerU，则应由系统自己的页内分析模块先生成等价候选块，再执行同样的区域重组逻辑。
 
 实现思路：
 
@@ -862,12 +868,12 @@ pdf_parser/
 ```text
 DocumentInput
   -> RawPage[]
-  -> LayoutBlock[]
+  -> PageLayoutResult
   -> Candidate Objects
   -> Globally Corrected Objects
   -> SemanticBlock[]
   -> SectionTree / TableObjects / FigureObjects
-  -> Final Structured Document
+  -> ParsedDocument
 ```
 
 ### 7.2 阶段特征
