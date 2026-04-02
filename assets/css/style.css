@@ -166,7 +166,7 @@ pre code,
   padding: 28px;
 }
 .home-panel-card {
-  height: 760px;
+  height: 700px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -212,11 +212,12 @@ pre code,
   margin: 0;
 }
 .thoughts-tooltip {
-  width: min(460px, 100%);
-  max-height: 0;
-  margin-top: 0;
-  padding: 0 16px;
-  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: calc(100% + 10px);
+  z-index: 20;
+  width: min(460px, calc(100vw - 80px));
+  padding: 14px 16px;
   border-radius: 18px;
   border: 1px solid rgba(207,229,224,0.95);
   background: rgba(255,255,255,0.94);
@@ -225,15 +226,13 @@ pre code,
   font-size: 0.98rem;
   box-shadow: var(--shadow);
   opacity: 0;
+  pointer-events: none;
   transform: translateY(-4px);
-  transition: opacity .18s ease, transform .18s ease, max-height .18s ease, margin-top .18s ease, padding .18s ease;
+  transition: opacity .18s ease, transform .18s ease;
 }
 .thoughts-title-wrap:hover .thoughts-tooltip,
 .thoughts-title-wrap:focus-within .thoughts-tooltip,
 .thoughts-title-wrap:focus .thoughts-tooltip {
-  max-height: 200px;
-  margin-top: 12px;
-  padding: 14px 16px;
   opacity: 1;
   transform: translateY(0);
 }
@@ -667,13 +666,7 @@ pre code,
   .hero-desc, .page-desc { font-size: 1.05rem; }
   .doc-sidebar-panel { max-height: calc(100vh - 24px); }
   .thoughts-tooltip {
-    position: static;
-    width: 100%;
-    max-height: none;
-    margin-top: 10px;
-    padding: 14px 16px;
-    opacity: 1;
-    transform: none;
+    display: none !important;
   }
   .thoughts-list {
     max-height: 520px;
