@@ -166,7 +166,7 @@ pre code,
   padding: 28px;
 }
 .home-panel-card {
-  height: 700px;
+  height: 620px;
   display: flex;
   flex-direction: column;
   overflow: hidden;

@@ -148,31 +148,11 @@ layout: default
       });
     }
 
-    function getPageSize(filteredCards) {
-      if (!filteredCards.length) return 0;
-      var availableHeight = list.clientHeight;
-      if (!availableHeight) return 1;
-
-      var probe = filteredCards[0].cloneNode(true);
-      probe.hidden = false;
-      probe.style.position = 'absolute';
-      probe.style.visibility = 'hidden';
-      probe.style.pointerEvents = 'none';
-      probe.style.left = '-9999px';
-      probe.style.top = '0';
-      list.appendChild(probe);
-      var cardHeight = probe.offsetHeight;
-      list.removeChild(probe);
-
-      var gap = 14;
-      return Math.max(1, Math.floor((availableHeight + gap) / (cardHeight + gap)));
-    }
-
     function renderPage(value) {
       var allCards = Array.prototype.slice.call(list.querySelectorAll('.thought-card'));
       var filteredCards = getFilteredCards(value);
-      var pageSize = getPageSize(filteredCards);
-      var totalPages = filteredCards.length === 0 || pageSize === 0 ? 0 : Math.ceil(filteredCards.length / pageSize);
+      var pageSize = 3;
+      var totalPages = filteredCards.length === 0 ? 0 : Math.ceil(filteredCards.length / pageSize);
 
       if (currentPage > totalPages) currentPage = totalPages;
       if (currentPage < 1) currentPage = totalPages === 0 ? 0 : 1;
@@ -265,10 +245,6 @@ layout: default
     syncFilters(initialValue, null);
     renderPage(initialValue);
     window.addEventListener('resize', hidePreview);
-    window.addEventListener('resize', function () {
-      var value = (desktopFilter && desktopFilter.value) || (mobileFilter && mobileFilter.value) || '';
-      renderPage(value);
-    });
     document.addEventListener('scroll', hidePreview, true);
   })();
 </script>
