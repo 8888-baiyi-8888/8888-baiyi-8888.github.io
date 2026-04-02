@@ -236,10 +236,27 @@ pre code,
   margin: 18px 0 20px;
   flex-wrap: wrap;
 }
+.thoughts-toolbar-inline {
+  margin: 0;
+}
+.thoughts-toolbar-mobile {
+  display: none;
+}
 .thoughts-filter-label {
   color: var(--muted);
   font-size: 0.95rem;
   font-weight: 700;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 .thoughts-filter-select {
   min-width: 180px;
@@ -535,6 +552,8 @@ pre code,
   .hero-visual { margin-top: 24px; }
   .section-hero-top { flex-direction: column; }
   .panel-head { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .thoughts-toolbar-inline { display: none; }
+  .thoughts-toolbar-mobile { display: flex; }
   .doc-sidebar { position: static; }
   .section-recent-list a { align-items: flex-start; flex-direction: column; gap: 4px; }
 }

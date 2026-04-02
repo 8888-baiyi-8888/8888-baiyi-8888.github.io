@@ -40,21 +40,29 @@ layout: default
           <div class="thoughts-tooltip">认知本身存在局限性与时效性，所以这里的内容并非最终定论，或许会因新的信息和实践而被重新推翻。</div>
         </div>
       </div>
-      <span class="panel-kicker">Focus</span>
-    </div>
-    {% assign fragments = site.data.thought_fragments | sort: "created_at" | reverse %}
-    {% assign all_tags = "" | split: "" %}
-    {% for fragment in fragments %}
-      {% for tag in fragment.tags %}
-        {% unless all_tags contains tag %}
-          {% assign all_tags = all_tags | push: tag %}
-        {% endunless %}
+      {% assign fragments = site.data.thought_fragments | sort: "created_at" | reverse %}
+      {% assign all_tags = "" | split: "" %}
+      {% for fragment in fragments %}
+        {% for tag in fragment.tags %}
+          {% unless all_tags contains tag %}
+            {% assign all_tags = all_tags | push: tag %}
+          {% endunless %}
+        {% endfor %}
       {% endfor %}
-    {% endfor %}
-    {% assign sorted_tags = all_tags | sort %}
-    <div class="thoughts-toolbar">
-      <label class="thoughts-filter-label" for="thought-tag-filter">标签筛选</label>
-      <select id="thought-tag-filter" class="thoughts-filter-select">
+      {% assign sorted_tags = all_tags | sort %}
+      <div class="thoughts-toolbar thoughts-toolbar-inline">
+        <label class="thoughts-filter-label sr-only" for="thought-tag-filter">标签筛选</label>
+        <select id="thought-tag-filter" class="thoughts-filter-select">
+          <option value="">全部标签</option>
+          {% for tag in sorted_tags %}
+            <option value="{{ tag }}">{{ tag }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="thoughts-toolbar thoughts-toolbar-mobile">
+      <label class="thoughts-filter-label" for="thought-tag-filter-mobile">标签筛选</label>
+      <select id="thought-tag-filter-mobile" class="thoughts-filter-select">
         <option value="">全部标签</option>
         {% for tag in sorted_tags %}
           <option value="{{ tag }}">{{ tag }}</option>
@@ -105,12 +113,17 @@ layout: default
 
 <script>
   (function () {
-    var filter = document.getElementById('thought-tag-filter');
+    var desktopFilter = document.getElementById('thought-tag-filter');
+    var mobileFilter = document.getElementById('thought-tag-filter-mobile');
     var list = document.getElementById('thoughts-list');
-    if (!filter || !list) return;
+    if (!list) return;
 
-    function applyFilter() {
-      var value = filter.value;
+    function syncFilters(value, source) {
+      if (desktopFilter && source !== desktopFilter) desktopFilter.value = value;
+      if (mobileFilter && source !== mobileFilter) mobileFilter.value = value;
+    }
+
+    function applyFilter(value) {
       var cards = list.querySelectorAll('.thought-card');
 
       cards.forEach(function (card) {
@@ -120,7 +133,20 @@ layout: default
       });
     }
 
-    filter.addEventListener('change', applyFilter);
-    applyFilter();
+    function bindFilter(filter) {
+      if (!filter) return;
+      filter.addEventListener('change', function () {
+        var value = filter.value;
+        syncFilters(value, filter);
+        applyFilter(value);
+      });
+    }
+
+    bindFilter(desktopFilter);
+    bindFilter(mobileFilter);
+
+    var initialValue = (desktopFilter && desktopFilter.value) || (mobileFilter && mobileFilter.value) || '';
+    syncFilters(initialValue, null);
+    applyFilter(initialValue);
   })();
 </script>
