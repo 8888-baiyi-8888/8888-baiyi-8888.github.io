@@ -34,17 +34,41 @@ layout: default
 <section class="grid-two">
   <div class="card">
     <div class="panel-head">
-      <h2>写作方向</h2>
+      <div class="thoughts-heading">
+        <div class="thoughts-title-wrap" tabindex="0" aria-label="思考碎片说明">
+          <h2>思考碎片</h2>
+          <div class="thoughts-tooltip">这里记录研究和写作过程中的零散判断、方法片段与阶段性想法，未必展开成完整文章，但会持续沉淀。</div>
+        </div>
+      </div>
       <span class="panel-kicker">Focus</span>
     </div>
-    <p class="feature-copy">这里持续整理 AI 研究过程中的问题、判断和方法，不只记录结论，也保留推导路径与思考痕迹。</p>
-    <div class="feature-tags">
-      <span class="chip chip-soft">论文拆解</span>
-      <span class="chip chip-soft">Agent 系统</span>
-      <span class="chip chip-soft">结构化输出</span>
-      <span class="chip chip-soft">技术解读</span>
+    {% assign fragments = site.data.thought_fragments | sort: "created_at" | reverse %}
+    {% assign all_tags = "" | split: "" %}
+    {% for fragment in fragments %}
+      {% for tag in fragment.tags %}
+        {% unless all_tags contains tag %}
+          {% assign all_tags = all_tags | push: tag %}
+        {% endunless %}
+      {% endfor %}
+    {% endfor %}
+    {% assign sorted_tags = all_tags | sort %}
+    <div class="thoughts-toolbar">
+      <label class="thoughts-filter-label" for="thought-tag-filter">标签筛选</label>
+      <select id="thought-tag-filter" class="thoughts-filter-select">
+        <option value="">全部标签</option>
+        {% for tag in sorted_tags %}
+          <option value="{{ tag }}">{{ tag }}</option>
+        {% endfor %}
+      </select>
     </div>
-    <p class="feature-note">希望这里既能作为长期积累的知识花园，也能成为之后继续展开专题研究的起点。</p>
+    <div class="thoughts-list" id="thoughts-list">
+      {% for fragment in fragments %}
+        <article class="thought-card" data-tags="{{ fragment.tags | join: '|' }}" data-created-at="{{ fragment.created_at }}" data-status="{{ fragment.status }}">
+          <h3>{{ fragment.title }}</h3>
+          <p>{{ fragment.summary }}</p>
+        </article>
+      {% endfor %}
+    </div>
   </div>
   <div class="card">
     <div class="panel-head">
@@ -78,3 +102,25 @@ layout: default
     </div>
   </div>
 </section>
+
+<script>
+  (function () {
+    var filter = document.getElementById('thought-tag-filter');
+    var list = document.getElementById('thoughts-list');
+    if (!filter || !list) return;
+
+    function applyFilter() {
+      var value = filter.value;
+      var cards = list.querySelectorAll('.thought-card');
+
+      cards.forEach(function (card) {
+        var tags = (card.getAttribute('data-tags') || '').split('|');
+        var visible = !value || tags.indexOf(value) !== -1;
+        card.hidden = !visible;
+      });
+    }
+
+    filter.addEventListener('change', applyFilter);
+    applyFilter();
+  })();
+</script>

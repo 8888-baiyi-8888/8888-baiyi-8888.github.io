@@ -1,0 +1,31 @@
+- id: fragment-001
+  title: 结构化输出的目标不是看起来像 JSON
+  summary: 结构化输出真正要解决的是解析、校验和自动化接入，而不是表面上的格式相似。
+  tags:
+    - 结构化输出
+    - 工程原则
+  status: stable
+  created_at: 2026-04-02
+  source: /understanding/structured-output/structured-output-notes/
+
+- id: fragment-002
+  title: Agent 的关键不是一次写对，而是能不能自己验证
+  summary: 在复杂任务里，验证闭环通常比单次生成质量更重要，因为它决定了系统能否持续修正并推进。
+  tags:
+    - Agent
+    - 验证
+  status: stable
+  created_at: 2026-04-01
+  source: /interpretation/agents/improving-deep-agents-with-harness-engineering-summary/
+
+- id: fragment-003
+  title: 长文档解析不能只看单页
+  summary: 很多关键结构属于全文模式，例如页眉页脚、标题层级和跨页延续，单页判断往往不够稳定。
+  tags:
+    - 文档解析
+    - 全局校正
+  status: working
+  created_at: 2026-04-01
+  source: /research/doc-parsing/standard-pdf-structured-extraction/
+
+
