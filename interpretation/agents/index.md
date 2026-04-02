@@ -12,4 +12,4 @@ description: 与 Agent 系统、执行框架和工程实践相关的解读整理
 ## 本专题文章
 
 - [Improving Deep Agents with harness engineering总结](/interpretation/agents/improving-deep-agents-with-harness-engineering-summary/)
-- [My AI Adoption Journey：完整中文整理](/interpretation/agents/my-ai-adoption-journey/)
+- [My AI Adoption Journey 总结](/interpretation/agents/my-ai-adoption-journey/)
