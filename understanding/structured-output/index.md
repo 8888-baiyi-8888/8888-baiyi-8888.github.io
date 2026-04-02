@@ -11,4 +11,4 @@ description: 关于结构化输出、JSON 约束与下游验证的理解笔记�
 
 ## 本专题文章
 
-- [结构化输出实践笔记](/understanding/structured-output/structured-output-notes/)
+- [结构化输出的工程化理解](/understanding/structured-output/structured-output-notes/)
