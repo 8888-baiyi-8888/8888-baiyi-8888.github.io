@@ -1,4 +1,4 @@
-- id: fragment-001
+- id: fragment-003
   title: 结构化输出的目标不是看起来像 JSON
   summary: 结构化输出真正要解决的是解析、校验和自动化接入，而不是表面上的格式相似。
   tags:
@@ -18,7 +18,7 @@
   created_at: 2026-04-01
   source: /interpretation/agents/improving-deep-agents-with-harness-engineering-summary/
 
-- id: fragment-003
+- id: fragment-001
   title: 长文档解析不能只看单页
   summary: 很多关键结构属于全文模式，例如页眉页脚、标题层级和跨页延续，单页判断往往不够稳定。
   tags:
