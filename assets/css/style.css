@@ -435,6 +435,18 @@ pre code,
   padding: 20px 8px;
   color: var(--muted);
 }
+.footer p {
+  margin: 0;
+}
+.footer p + p {
+  margin-top: 12px;
+}
+.footer-note {
+  max-width: 760px;
+  font-size: 0.96rem;
+  line-height: 1.8;
+  color: #557170;
+}
 
 @media (max-width: 920px) {
   .topbar, .hero, .grid-three, .grid-two, .doc-layout { grid-template-columns: 1fr; }
