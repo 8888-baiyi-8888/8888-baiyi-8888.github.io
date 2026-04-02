@@ -32,7 +32,7 @@ layout: default
 </section>
 
 <section class="grid-two">
-  <div class="card">
+  <div class="card home-panel-card">
     <div class="panel-head">
       <div class="thoughts-heading">
         <div class="thoughts-title-wrap" tabindex="0" aria-label="认知碎片说明">
@@ -71,7 +71,7 @@ layout: default
     </div>
     <div class="thoughts-list" id="thoughts-list">
       {% for fragment in fragments %}
-        <article class="thought-card" data-tags="{{ fragment.tags | join: '|' }}" data-created-at="{{ fragment.created_at }}" data-status="{{ fragment.status }}">
+        <article class="thought-card" data-tags="{{ fragment.tags | join: '|' }}" data-created-at="{{ fragment.created_at }}" data-status="{{ fragment.status }}" data-full-title="{{ fragment.title | escape }}" data-full-summary="{{ fragment.summary | escape }}">
           <h3>{{ fragment.title }}</h3>
           <p>{{ fragment.summary }}</p>
         </article>
@@ -83,7 +83,7 @@ layout: default
       <button type="button" class="thoughts-page-btn" id="thoughts-next">下一页</button>
     </div>
   </div>
-  <div class="card">
+  <div class="card home-panel-card">
     <div class="panel-head">
       <h2>最新研究</h2>
       <span class="panel-kicker">Recent</span>
@@ -94,7 +94,7 @@ layout: default
     <ul class="soft-list recent-list-inner">
       {% for item in sorted_pages %}
         {% if item.updated_at %}
-          {% if item.layout != 'section' and item.url != page.url %}
+          {% if item.layout != 'section' and item.url != page.url and item.url != '/cognitive-fragments/' %}
             <li>
               <a href="{{ item.url | relative_url }}">
                 <span class="recent-path">
@@ -107,7 +107,7 @@ layout: default
             {% assign recent_count = recent_count | plus: 1 %}
           {% endif %}
         {% endif %}
-        {% if recent_count >= 4 %}
+        {% if recent_count >= 3 %}
           {% break %}
         {% endif %}
       {% endfor %}
@@ -115,6 +115,11 @@ layout: default
     </div>
   </div>
 </section>
+
+<div class="thought-preview" id="thought-preview" hidden>
+  <strong class="thought-preview-title" id="thought-preview-title"></strong>
+  <p class="thought-preview-text" id="thought-preview-text"></p>
+</div>
 
 <script>
   (function () {
@@ -124,6 +129,9 @@ layout: default
     var prevBtn = document.getElementById('thoughts-prev');
     var nextBtn = document.getElementById('thoughts-next');
     var pageInfo = document.getElementById('thoughts-page-info');
+    var preview = document.getElementById('thought-preview');
+    var previewTitle = document.getElementById('thought-preview-title');
+    var previewText = document.getElementById('thought-preview-text');
     if (!list) return;
     var pageSize = 3;
     var currentPage = 1;
@@ -144,12 +152,12 @@ layout: default
     function renderPage(value) {
       var allCards = Array.prototype.slice.call(list.querySelectorAll('.thought-card'));
       var filteredCards = getFilteredCards(value);
-      var totalPages = Math.max(1, Math.ceil(filteredCards.length / pageSize));
+      var totalPages = filteredCards.length === 0 ? 0 : Math.ceil(filteredCards.length / pageSize);
 
       if (currentPage > totalPages) currentPage = totalPages;
-      if (currentPage < 1) currentPage = 1;
+      if (currentPage < 1) currentPage = totalPages === 0 ? 0 : 1;
 
-      var start = (currentPage - 1) * pageSize;
+      var start = totalPages === 0 ? 0 : (currentPage - 1) * pageSize;
       var end = start + pageSize;
 
       allCards.forEach(function (card) {
@@ -161,15 +169,52 @@ layout: default
       });
 
       if (pageInfo) pageInfo.textContent = totalPages === 0 ? '0 / 0' : (currentPage + ' / ' + totalPages);
-      if (prevBtn) prevBtn.disabled = currentPage <= 1;
-      if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+      if (prevBtn) prevBtn.disabled = totalPages === 0 || currentPage <= 1;
+      if (nextBtn) nextBtn.disabled = totalPages === 0 || currentPage >= totalPages;
     }
+
+    function hidePreview() {
+      if (!preview) return;
+      preview.hidden = true;
+    }
+
+    function positionPreview(x, y) {
+      if (!preview || preview.hidden) return;
+      var offset = 18;
+      var maxLeft = window.innerWidth - preview.offsetWidth - 16;
+      var maxTop = window.innerHeight - preview.offsetHeight - 16;
+      var left = Math.min(x + offset, maxLeft);
+      var top = Math.min(y + offset, maxTop);
+      preview.style.left = Math.max(16, left) + 'px';
+      preview.style.top = Math.max(16, top) + 'px';
+    }
+
+    function showPreview(card, event) {
+      if (!preview || window.innerWidth <= 920) return;
+      previewTitle.textContent = card.getAttribute('data-full-title') || '';
+      previewText.textContent = card.getAttribute('data-full-summary') || '';
+      preview.hidden = false;
+      positionPreview(event.clientX, event.clientY);
+    }
+
+    list.querySelectorAll('.thought-card').forEach(function (card) {
+      card.addEventListener('mouseenter', function (event) {
+        showPreview(card, event);
+      });
+      card.addEventListener('mousemove', function (event) {
+        positionPreview(event.clientX, event.clientY);
+      });
+      card.addEventListener('mouseleave', hidePreview);
+      card.addEventListener('focusin', hidePreview);
+      card.addEventListener('focusout', hidePreview);
+    });
 
     function bindFilter(filter) {
       if (!filter) return;
       filter.addEventListener('change', function () {
         var value = filter.value;
         currentPage = 1;
+        hidePreview();
         syncFilters(value, filter);
         renderPage(value);
       });
@@ -182,6 +227,7 @@ layout: default
       prevBtn.addEventListener('click', function () {
         var value = (desktopFilter && desktopFilter.value) || (mobileFilter && mobileFilter.value) || '';
         currentPage -= 1;
+        hidePreview();
         renderPage(value);
       });
     }
@@ -190,6 +236,7 @@ layout: default
       nextBtn.addEventListener('click', function () {
         var value = (desktopFilter && desktopFilter.value) || (mobileFilter && mobileFilter.value) || '';
         currentPage += 1;
+        hidePreview();
         renderPage(value);
       });
     }
@@ -197,5 +244,7 @@ layout: default
     var initialValue = (desktopFilter && desktopFilter.value) || (mobileFilter && mobileFilter.value) || '';
     syncFilters(initialValue, null);
     renderPage(initialValue);
+    window.addEventListener('resize', hidePreview);
+    document.addEventListener('scroll', hidePreview, true);
   })();
 </script>
