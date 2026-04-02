@@ -11,5 +11,4 @@ recent_limit: 3
 
 ## 当前专题
 
-- [LLM](/interpretation/llm/)：与大模型、Agent 和上下文工程相关的解读整理
 - [Agents](/interpretation/agents/)：与 Agent 系统、执行框架和工程实践相关的解读整理

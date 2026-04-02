@@ -50,6 +50,6 @@ research/
 
 ```text
 assets/images/research/doc-parsing/
-assets/images/interpretation/llm/
+assets/images/interpretation/agents/
 assets/images/understanding/structured-output/
 ```
