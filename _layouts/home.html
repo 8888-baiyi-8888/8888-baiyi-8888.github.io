@@ -70,12 +70,15 @@ layout: default
       </select>
     </div>
     <div class="thoughts-list" id="thoughts-list">
-      {% for fragment in fragments %}
+      {% for fragment in fragments limit: 3 %}
         <article class="thought-card" data-tags="{{ fragment.tags | join: '|' }}" data-created-at="{{ fragment.created_at }}" data-status="{{ fragment.status }}">
           <h3>{{ fragment.title }}</h3>
           <p>{{ fragment.summary }}</p>
         </article>
       {% endfor %}
+    </div>
+    <div class="thoughts-more">
+      <a class="btn btn-secondary" href="{{ '/cognitive-fragments/' | relative_url }}">查看更多</a>
     </div>
   </div>
   <div class="card">
