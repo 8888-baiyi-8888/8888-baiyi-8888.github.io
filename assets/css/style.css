@@ -134,6 +134,7 @@ pre code,
 }
 .hero-visual img {
   width: 100%;
+  height: auto;
   display: block;
   border-radius: 24px;
 }

@@ -1,14 +1,116 @@
-<svg width="960" height="620" viewBox="0 0 960 620" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="960" height="620" rx="36" fill="#F3FAF8"/>
-  <circle cx="760" cy="126" r="48" fill="#C9EAE2"/>
-  <rect x="114" y="138" width="264" height="156" rx="28" fill="#F9FDFC" stroke="#CDE8E2" stroke-width="4"/>
-  <rect x="154" y="182" width="128" height="20" rx="10" fill="#B7DED8"/>
-  <rect x="154" y="220" width="182" height="18" rx="9" fill="#D5ECE7"/>
-  <rect x="154" y="254" width="162" height="18" rx="9" fill="#D5ECE7"/>
-  <rect x="566" y="184" width="222" height="170" rx="28" fill="#F9FDFC" stroke="#CDE8E2" stroke-width="4"/>
-  <path d="M620 314C650 256 694 220 728 220C762 220 806 256 836 314" stroke="#74C9C6" stroke-width="18" stroke-linecap="round"/>
-  <circle cx="728" cy="220" r="24" fill="#A9D9E6"/>
-  <path d="M0 480C132 428 238 414 338 446C438 478 512 560 642 544C740 532 836 474 960 438V620H0V480Z" fill="#D8EFEB"/>
-  <path d="M0 504C136 458 250 452 344 476C440 500 528 568 642 560C760 550 858 490 960 466V620H0V504Z" fill="#C4E3E2"/>
-  <path d="M0 536C142 506 254 502 362 524C466 546 552 588 654 580C788 570 872 548 960 534V620H0V536Z" fill="#A8D1E3"/>
+<svg width="960" height="620" viewBox="0 0 960 620" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">知识之树，向光生长</title>
+  <desc id="desc">小芽抽枝长叶，长成大树。淡蓝色蝴蝶相伴飞舞，最终停在树冠。水波缓缓流动，十四秒循环。</desc>
+  <defs>
+    <linearGradient id="sky" x1="120" y1="0" x2="820" y2="620" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F4FBF9"/><stop offset="1" stop-color="#E7F5F2"/>
+    </linearGradient>
+    <linearGradient id="foliage" x1="0" y1="-100" x2="0" y2="55" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A4D8BD"/><stop offset="1" stop-color="#68B8AB"/>
+    </linearGradient>
+    <radialGradient id="sun"><stop stop-color="#F5EAC2" stop-opacity=".85"/><stop offset="1" stop-color="#F5EAC2" stop-opacity="0"/></radialGradient>
+    <clipPath id="frame"><rect width="960" height="620" rx="36"/></clipPath>
+    <path id="leaf" d="M0 0C-34-2-65-28-58-57C-26-63 4-35 0 0Z"/>
+    <g id="crown">
+      <path d="M-77 24C-119 4-109-46-77-59C-84-93-45-121-15-105C8-132 55-119 63-87C105-89 124-39 99-12C110 21 75 45 45 36C19 60-15 54-35 36C-52 45-70 39-77 24Z" fill="url(#foliage)"/>
+      <path d="M-76-48C-66-83-41-91-22-80M10-92C34-97 49-85 52-70" stroke="#D3EDDC" stroke-width="7" stroke-linecap="round" opacity=".55"/>
+    </g>
+  </defs>
+  <style>
+    /* Shared timing keeps growth and the butterfly synchronized. */
+    .life { animation: life 14s linear infinite; }
+    .trunk { transform-origin: 475px 465px; animation: trunk 14s ease-in-out infinite; }
+    .branch { stroke-dasharray: 1; animation: branch 14s ease-in-out infinite; }
+    .b2 { animation-name: branch-late; }
+    .sprout { transform-origin: 475px 441px; animation: sprout 14s ease-in-out infinite; }
+    .canopy { animation: canopy 14s ease-in-out infinite; }
+    .c2 { animation-name: canopy-mid; }
+    .c3 { animation-name: canopy-top; }
+    .visitor { animation: flight 14s ease-in-out infinite; }
+    .wing-left { animation: flutter-left .65s ease-in-out infinite alternate; }
+    .wing-right { animation: flutter-right .65s ease-in-out infinite alternate; }
+    .water { animation: water 7s ease-in-out infinite alternate; }
+    .water-back { animation-duration: 9s; animation-direction: alternate-reverse; }
+    .glow { animation: glow 14s ease-in-out infinite; }
+    .g2 { animation-delay: -.8s; }
+    @keyframes life { 0%,88% {opacity:1} 97%,100% {opacity:0} }
+    @keyframes trunk {
+      0%,4% {transform:scale(.2,.075)}
+      22% {transform:scale(.48,.3)}
+      48% {transform:scale(.83,.72)}
+      68%,100% {transform:scale(1)}
+    }
+    @keyframes branch { 0%,20% {stroke-dashoffset:1} 48%,100% {stroke-dashoffset:0} }
+    @keyframes branch-late { 0%,34% {stroke-dashoffset:1} 64%,100% {stroke-dashoffset:0} }
+    @keyframes sprout { 0% {transform:scale(.15);opacity:0} 7%,22% {transform:scale(1);opacity:1} 42%,100% {transform:scale(1.15);opacity:0} }
+    @keyframes canopy { 0%,28% {transform:scale(0);opacity:0} 53%,100% {transform:scale(1);opacity:1} }
+    @keyframes canopy-mid { 0%,39% {transform:scale(0);opacity:0} 62%,100% {transform:scale(1);opacity:1} }
+    @keyframes canopy-top { 0%,48% {transform:scale(0);opacity:0} 70%,100% {transform:scale(1);opacity:1} }
+    @keyframes flight {
+      0% {transform:translate(150px,395px) rotate(-15deg);opacity:0}
+      8% {transform:translate(310px,380px) rotate(10deg);opacity:1}
+      20% {transform:translate(524px,396px) rotate(-12deg)}
+      32% {transform:translate(615px,300px) rotate(-25deg)}
+      44% {transform:translate(370px,245px) rotate(12deg)}
+      57% {transform:translate(530px,119px) rotate(8deg)}
+      70%,100% {transform:translate(599px,192px) rotate(-18deg);opacity:1}
+    }
+    @keyframes flutter-left { from {transform:scaleX(1)} to {transform:scaleX(.28)} }
+    @keyframes flutter-right { from {transform:scaleX(.4)} to {transform:scaleX(1)} }
+    @keyframes water { from {transform:translateX(-16px)} to {transform:translateX(16px)} }
+    @keyframes glow { 0%,53%,100% {opacity:0} 68%,85% {opacity:.85} 77% {opacity:.3} }
+    @media (prefers-reduced-motion: reduce) {
+      .life,.trunk,.branch,.sprout,.canopy,.visitor,.wing-left,.wing-right,.water,.glow {animation:none}
+      .sprout {display:none}
+      .branch {stroke-dashoffset:0}
+      .visitor {transform:translate(599px,192px) rotate(-18deg)}
+      .glow {opacity:.65}
+    }
+  </style>
+  <g clip-path="url(#frame)">
+    <rect width="960" height="620" fill="url(#sky)"/>
+    <circle cx="739" cy="131" r="120" fill="url(#sun)"/>
+    <circle cx="739" cy="131" r="36" fill="#E3EDD1"/>
+    <g stroke="#CADFD8" stroke-width="2" stroke-linecap="round" opacity=".6"><path d="M165 171H228M191 186H252M738 299H790M761 312H820"/></g>
+    <path d="M0 453C147 405 224 433 347 466C525 513 678 413 802 412C864 412 916 428 960 444V620H0Z" fill="#DAEDE4"/>
+    <path d="M0 500C181 519 286 451 421 447C578 430 698 491 960 466V620H0Z" fill="#C6E3D9"/>
+    <ellipse cx="475" cy="474" rx="85" ry="10" fill="#8CBFAF" opacity=".2"/>
+    <g class="life">
+      <g class="sprout" fill="#78B99C">
+        <use href="#leaf" transform="translate(475 441) scale(.7)"/>
+        <use href="#leaf" transform="translate(475 443) scale(-.64,.64)"/>
+        <path d="M475 463V432" stroke="#629E92" stroke-width="4" stroke-linecap="round"/>
+      </g>
+      <g class="trunk">
+        <path d="M460 470C471 406 470 349 474 295C477 242 479 214 486 180C488 246 484 294 488 343C490 392 491 431 499 470Z" fill="#629E92"/>
+        <path d="M481 406C470 348 436 310 387 281M481 348C511 318 549 284 583 258" class="branch" pathLength="1" stroke="#629E92" stroke-width="12" stroke-linecap="round"/>
+        <path d="M480 293C456 264 430 237 419 214M486 249C509 225 528 205 532 185" class="branch b2" pathLength="1" stroke="#629E92" stroke-width="9" stroke-linecap="round"/>
+        <path d="M480 454C483 413 480 367 481 339" stroke="#A7CDB5" stroke-width="3" stroke-linecap="round"/>
+      <g transform="translate(378 302)"><g class="canopy"><use href="#crown" transform="scale(.91,.83)"/></g></g>
+      <g transform="translate(578 282)"><g class="canopy c2"><use href="#crown" transform="scale(.94,.84)"/></g></g>
+      <g transform="translate(414 229)"><g class="canopy c2"><use href="#crown" transform="scale(.82,.8)"/></g></g>
+      <g transform="translate(532 219)"><g class="canopy c3"><use href="#crown" transform="scale(.85,.87)"/></g></g>
+      <g transform="translate(477 176)"><g class="canopy c3"><use href="#crown" transform="scale(.78,.8)"/></g></g>
+      <g fill="#F9F4CE">
+        <circle class="glow" cx="383" cy="272" r="4"/><circle class="glow g2" cx="527" cy="210" r="4"/>
+        <circle class="glow" cx="465" cy="132" r="3"/><circle class="glow g2" cx="610" cy="277" r="3"/>
+      </g>
+      </g>
+      <g class="visitor">
+        <g class="wing-left">
+          <path d="M0 0C-8-27-30-29-27-11C-25-2-13 3 0 3C-16 0-25 12-16 16C-7 19-2 10 0 3" fill="#83C9DB"/>
+          <path d="M-5-4L-19-15" stroke="#D9F0EF" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <g class="wing-right">
+          <path d="M0 0C8-27 30-29 27-11C25-2 13 3 0 3C16 0 25 12 16 16C7 19 2 10 0 3" fill="#A4D9E7"/>
+          <path d="M5-4L19-15" stroke="#E9F8F5" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <path d="M0-7V10M-1-7L-5-12M1-7L5-12" stroke="#568F9E" stroke-width="2.5" stroke-linecap="round"/>
+      </g>
+    </g>
+    <g stroke="#8BBBA7" stroke-width="3" stroke-linecap="round" opacity=".65"><path d="M263 475L260 459M263 475L272 464M695 461L699 446M695 461L688 451"/></g>
+    <path class="water water-back" d="M-40 526C109 484 233 493 356 529S583 588 729 546S902 498 1000 514V640H-40Z" fill="#BBDDDD"/>
+    <path class="water" d="M-40 559C125 527 254 527 386 558S644 588 771 565S920 542 1000 555V640H-40Z" fill="#A8D1E3" opacity=".85"/>
+    <path d="M124 563H175M773 585H837" stroke="#E5F4F4" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+  </g>
 </svg>
