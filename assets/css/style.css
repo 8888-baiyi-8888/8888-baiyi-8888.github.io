@@ -687,6 +687,7 @@ pre code,
 }
 .thought-expand { margin-top: 12px; }
 .thought-card { overflow-wrap: anywhere; }
+.thought-card p + p { margin-top: 0.75em; }
 .recent-date { display: block; margin-top: 6px; color: var(--muted); font-size: .9rem; }
 .article-body { min-width: 0; overflow-wrap: anywhere; }
 .prose img { max-width: 100%; height: auto; }

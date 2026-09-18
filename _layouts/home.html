@@ -105,7 +105,7 @@ layout: default
       {% for fragment in fragments %}
         <article class="thought-card" data-tags="{{ fragment.tags | join: '|' }}" data-created-at="{{ fragment.created_at }}" data-status="{{ fragment.status }}" data-full-title="{{ fragment.title | escape }}" data-full-summary="{{ fragment.summary | escape }}">
           <div id="thought-content-{{ forloop.index }}"><h3>{{ fragment.title }}</h3>
-          <p>{{ fragment.summary }}</p></div>
+          {{ fragment.summary | markdownify }}</div>
           <button type="button" class="thought-expand" aria-expanded="false" aria-controls="thought-content-{{ forloop.index }}" hidden>展开全文</button>
         </article>
       {% endfor %}
