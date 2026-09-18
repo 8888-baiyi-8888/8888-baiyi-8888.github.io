@@ -2,37 +2,22 @@
 layout: default
 ---
 <section class="article-header card">
-  {% if page.parent_title or page.module_title %}
-  <div class="meta-line">
-    {% if page.module_title %}<span class="chip">{{ page.module_title }}</span>{% endif %}
-    {% if page.parent_title %}<span class="chip">{{ page.parent_title }}</span>{% endif %}
-  </div>
-  {% endif %}
+  <nav class="breadcrumb article-breadcrumb" aria-label="当前位置">
+    <a href="{{ '/' | relative_url }}">首页</a>
+    {% if page.module_path %} / <a href="{{ page.module_path | relative_url }}">{{ page.module_title }}</a>{% endif %}
+    {% if page.parent_path %} / <a href="{{ page.parent_path | relative_url }}">{{ page.parent_title }}</a>{% endif %}
+  </nav>
   <h1>{{ page.title }}</h1>
   {% if page.description %}<p class="page-desc">{{ page.description }}</p>{% endif %}
+  {% if page.updated_at %}<p class="article-date">更新于 <time datetime="{{ page.updated_at | date: '%Y-%m-%d' }}">{{ page.updated_at | date: '%Y-%m-%d' }}</time></p>{% endif %}
 </section>
 
 <section class="doc-layout">
   <aside class="doc-sidebar">
     <nav class="doc-sidebar-panel card" id="doc-toc">
       <div class="doc-sidebar-section">
-        <p class="doc-nav-label">页面导航</p>
-        <p class="breadcrumb">
-          <a href="{{ '/' | relative_url }}">首页</a>
-          {% if page.module_path and page.module_title %}
-            / <a href="{{ page.module_path | relative_url }}">{{ page.module_title }}</a>
-          {% endif %}
-          {% if page.parent_path and page.parent_title %}
-            / <a href="{{ page.parent_path | relative_url }}">{{ page.parent_title }}</a>
-          {% endif %}
-          / <span>{{ page.title }}</span>
-        </p>
-      </div>
-
-      <div class="doc-sidebar-divider"></div>
-
-      <div class="doc-sidebar-section">
-        <p class="doc-nav-label">文章目录</p>
+        <p class="doc-nav-label doc-toc-label">文章目录</p>
+        <button type="button" class="doc-toc-button" aria-expanded="true" aria-controls="doc-toc-list" hidden>文章目录</button>
         <ul class="doc-toc-list" id="doc-toc-list">
           <li class="doc-toc-empty">正在生成目录...</li>
         </ul>
@@ -43,6 +28,25 @@ layout: default
   <article class="article-body card prose" id="article-content">
     {{ content }}
   </article>
+  {% if page.parent_path %}
+  <nav class="related-reading card" aria-label="同专题阅读">
+    {% assign sibling_pages = site.pages | where: 'layout', 'page' | where: 'parent_path', page.parent_path | sort: 'title' %}
+    {% assign sibling_count = 0 %}
+    {% capture sibling_links %}
+      {% for item in sibling_pages %}
+        {% if item.url != page.url %}
+          <li><a href="{{ item.url | relative_url }}">{{ item.title | escape }}</a></li>
+          {% assign sibling_count = sibling_count | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+    {% endcapture %}
+    {% if sibling_count > 0 %}
+      <h2>同专题文章</h2>
+      <ul>{{ sibling_links }}</ul>
+    {% endif %}
+    <a class="related-back" href="{{ page.parent_path | relative_url }}">返回专题：{{ page.parent_title | escape }}</a>
+  </nav>
+  {% endif %}
 </section>
 
 <script>
@@ -52,6 +56,40 @@ layout: default
     var tocList = document.getElementById('doc-toc-list');
 
     if (!content || !toc || !tocList) return;
+
+    content.querySelectorAll('table').forEach(function (table, index) {
+      var wrapper = document.createElement('div');
+      wrapper.className = 'table-scroll';
+      wrapper.tabIndex = 0;
+      wrapper.setAttribute('role', 'region');
+      wrapper.setAttribute('aria-label', '表格 ' + (index + 1) + '，可横向滚动');
+      table.parentNode.insertBefore(wrapper, table);
+      wrapper.appendChild(table);
+      var hint = document.createElement('p');
+      hint.className = 'table-hint';
+      hint.textContent = '左右滑动查看完整表格 →';
+      wrapper.before(hint);
+      var updateHint = function () { hint.hidden = wrapper.scrollWidth <= wrapper.clientWidth + 1; };
+      new ResizeObserver(updateHint).observe(wrapper);
+      updateHint();
+    });
+    var tocButton = toc.querySelector('.doc-toc-button');
+    var narrowScreen = window.matchMedia('(max-width: 920px)');
+    function setTocExpanded(expanded) {
+      tocButton.setAttribute('aria-expanded', String(expanded));
+      tocButton.textContent = expanded ? '收起文章目录' : '展开文章目录';
+      tocList.hidden = !expanded;
+    }
+    function syncTocLayout() {
+      tocButton.hidden = !narrowScreen.matches;
+      toc.querySelector('.doc-toc-label').hidden = narrowScreen.matches;
+      setTocExpanded(!narrowScreen.matches);
+    }
+    tocButton.addEventListener('click', function () {
+      setTocExpanded(tocButton.getAttribute('aria-expanded') !== 'true');
+    });
+    narrowScreen.addEventListener('change', syncTocLayout);
+    syncTocLayout();
 
     var headings = content.querySelectorAll('h2, h3');
     if (!headings.length) {
@@ -133,8 +171,9 @@ layout: default
       var toggle = document.createElement('button');
       toggle.type = 'button';
       toggle.className = 'toc-toggle';
-      toggle.setAttribute('aria-expanded', 'true');
-      toggle.setAttribute('aria-label', '折叠子目录');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', '展开子目录');
+      group.classList.add('is-collapsed');
       toggle.innerHTML = '<span class="toc-toggle-icon"></span>';
       rowEl.appendChild(toggle);
 
@@ -147,7 +186,63 @@ layout: default
         btn.setAttribute('aria-label', expanded ? '展开子目录' : '折叠子目录');
         list.style.display = expanded ? 'none' : 'block';
         parent.classList.toggle('is-collapsed', expanded);
+        updateCurrentSection();
       });
+    }
+    tocList.addEventListener('click', function (event) {
+      if (event.target.closest('a') && narrowScreen.matches) setTocExpanded(false);
+    });
+    toc.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && narrowScreen.matches) {
+        setTocExpanded(false);
+        tocButton.focus();
+      }
+    });
+    var links = Array.prototype.slice.call(tocList.querySelectorAll('a'));
+    var scheduled = false;
+    function updateCurrentSection() {
+      scheduled = false;
+      var current = null;
+      for (var i = 0; i < headings.length; i++) {
+        if (headings[i].getBoundingClientRect().top <= 150) current = headings[i];
+        else break;
+      }
+      var activeLink = current && links.find(function (link) {
+        return link.getAttribute('href') === '#' + current.id;
+      });
+      if (activeLink) {
+        var activeGroup = activeLink.closest('.toc-level-2');
+        if (activeGroup && activeGroup.classList.contains('is-collapsed')) {
+          activeLink = activeGroup.querySelector('.toc-main-link');
+        }
+      }
+      links.forEach(function (link) {
+        if (link === activeLink) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    }
+    window.addEventListener('scroll', function () {
+      if (!scheduled) { scheduled = true; requestAnimationFrame(updateCurrentSection); }
+    }, { passive: true });
+    updateCurrentSection();
+
+    // Fold only an explicitly labelled reference list; keep every original node.
+    var referenceLabel = content.querySelector('p > strong');
+    if (referenceLabel && referenceLabel.textContent.trim() === '参考资料') {
+      var referenceParagraph = referenceLabel.parentElement;
+      var referenceList = referenceParagraph.nextElementSibling;
+      if (referenceList && referenceList.tagName === 'UL') {
+        var details = document.createElement('details');
+        details.className = 'article-references';
+        details.open = !narrowScreen.matches;
+        var summary = document.createElement('summary');
+        summary.textContent = '参考资料（' + referenceList.children.length + '）';
+        referenceParagraph.before(details);
+        details.appendChild(summary);
+        details.appendChild(referenceParagraph);
+        referenceParagraph.hidden = true;
+        details.appendChild(referenceList);
+      }
     }
   })();
 </script>

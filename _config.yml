@@ -6,7 +6,7 @@ author:
   github: 8888-baiyi-8888
   location: China
 baseurl: ""
-url: ""
+url: "https://8888-baiyi-8888.github.io"
 markdown: kramdown
 kramdown:
   input: GFM
@@ -18,3 +18,13 @@ defaults:
     values:
       layout: page
 collections: {}
+
+exclude:
+  - AGENTS.md
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+
+# Use the repository layouts and CSS without a bundled theme.
+theme: null

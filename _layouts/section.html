@@ -24,7 +24,7 @@ layout: default
   </div>
 </section>
 
-<section class="article-body card prose">
+<section class="article-body card prose{% if page.auto_recent %} module-overview{% endif %}">
   {{ content }}
 
   {% if page.auto_recent %}
@@ -39,7 +39,7 @@ layout: default
             <li>
               <a href="{{ item.url | relative_url }}">
                 <strong>{{ item.title }}</strong>
-                {% if item.parent_title %}<span>{{ item.parent_title }}</span>{% endif %}
+                <span class="section-item-meta">{% if item.parent_title %}{{ item.parent_title }} · {% endif %}<time datetime="{{ item.updated_at | date: '%Y-%m-%d' }}">{{ item.updated_at | date: '%Y-%m-%d' }}</time></span>
               </a>
             </li>
             {% assign recent_count = recent_count | plus: 1 %}

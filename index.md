@@ -2,7 +2,7 @@
 layout: home
 title: 首页
 hero_title: 解放更多人的生产力
-hero_desc: 这里主要分为三部分：个人研究、技术解读、技术理解。适合长期沉淀技术笔记与专题文档。
+hero_desc: 围绕 Agents、文档解析与结构化输出，分享个人研究、技术解读与学习笔记，一起理解 AI 的原理与实践。
 permalink: /
-description: 一个偏浅绿蓝色、支持多级目录的个人文档站。
+description: Baiyi 的 AI 技术文档站，分享 Agents、文档解析与结构化输出相关的个人研究、技术解读和学习笔记。
 ---

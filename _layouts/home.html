@@ -8,7 +8,7 @@ layout: default
     <p class="hero-desc">{{ page.hero_desc }}</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="{{ '/research/' | relative_url }}">进入个人研究</a>
-      <a class="btn btn-secondary" href="{{ '/about/' | relative_url }}">查看站点说明</a>
+      <a class="hero-about" href="{{ '/about/' | relative_url }}">关于作者与本站</a>
     </div>
   </div>
   <div class="hero-visual">
@@ -19,20 +19,52 @@ layout: default
 <section class="grid-three">
   <a class="card module-card" href="{{ '/research/' | relative_url }}">
     <h2>个人研究</h2>
-    <p>适合记录论文思路、系统设计、实验方案、专题研究。</p>
+    <p>分享文档解析、Agent 系统与多智能体协作的个人研究和总结。</p>
   </a>
   <a class="card module-card" href="{{ '/interpretation/' | relative_url }}">
     <h2>技术解读</h2>
-    <p>适合整理技术文章、官方文档与博客内容的中文解读与结构化梳理。</p>
+    <p>梳理外部技术文章与工程实践，记录对 Agent 等技术的解读。</p>
   </a>
   <a class="card module-card" href="{{ '/understanding/' | relative_url }}">
     <h2>技术理解</h2>
-    <p>适合沉淀原理拆解、概念总结、实践心得和问题分析。</p>
+    <p>拆解上下文工程、结构化输出等概念，沉淀原理理解与学习笔记。</p>
   </a>
 </section>
 
 <section class="grid-two">
-  <div class="card home-panel-card">
+  <div class="card home-panel-card recent-panel">
+    <div class="panel-head">
+      <h2>最近更新</h2>
+
+    </div>
+    <div class="recent-list">
+    {% assign sorted_pages = site.pages | sort: "updated_at" | reverse %}
+    {% assign recent_count = 0 %}
+    <ul class="soft-list recent-list-inner">
+      {% for item in sorted_pages %}
+        {% if item.updated_at %}
+          {% if item.layout != 'section' and item.url != page.url and item.url != '/cognitive-fragments/' %}
+            <li>
+              <a href="{{ item.url | relative_url }}">
+                <span class="recent-path">
+                  {% if item.module_title %}{{ item.module_title }}{% endif %}
+                  {% if item.parent_title %} / {{ item.parent_title }}{% endif %}
+                </span>
+                {% if item.title %}<strong>{{ item.title }}</strong>{% endif %}
+                <time class="recent-date" datetime="{{ item.updated_at | date: '%Y-%m-%d' }}">{{ item.updated_at | date: '%Y-%m-%d' }}</time>
+              </a>
+            </li>
+            {% assign recent_count = recent_count | plus: 1 %}
+          {% endif %}
+        {% endif %}
+        {% if recent_count >= 8 %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    </ul>
+    </div>
+  </div>
+  <div class="card home-panel-card thoughts-panel">
     <div class="panel-head">
       <div class="thoughts-heading">
         <div class="thoughts-title-wrap" tabindex="0" aria-label="认知碎片说明">
@@ -72,8 +104,9 @@ layout: default
     <div class="thoughts-list" id="thoughts-list">
       {% for fragment in fragments %}
         <article class="thought-card" data-tags="{{ fragment.tags | join: '|' }}" data-created-at="{{ fragment.created_at }}" data-status="{{ fragment.status }}" data-full-title="{{ fragment.title | escape }}" data-full-summary="{{ fragment.summary | escape }}">
-          <h3>{{ fragment.title }}</h3>
-          <p>{{ fragment.summary }}</p>
+          <div id="thought-content-{{ forloop.index }}"><h3>{{ fragment.title }}</h3>
+          <p>{{ fragment.summary }}</p></div>
+          <button type="button" class="thought-expand" aria-expanded="false" aria-controls="thought-content-{{ forloop.index }}" hidden>展开全文</button>
         </article>
       {% endfor %}
     </div>
@@ -83,43 +116,7 @@ layout: default
       <button type="button" class="thoughts-page-btn" id="thoughts-next">下一页</button>
     </div>
   </div>
-  <div class="card home-panel-card">
-    <div class="panel-head">
-      <h2>最新研究</h2>
-      <span class="panel-kicker">Recent</span>
-    </div>
-    <div class="recent-list">
-    {% assign sorted_pages = site.pages | sort: "updated_at" | reverse %}
-    {% assign recent_count = 0 %}
-    <ul class="soft-list recent-list-inner">
-      {% for item in sorted_pages %}
-        {% if item.updated_at %}
-          {% if item.layout != 'section' and item.url != page.url and item.url != '/cognitive-fragments/' %}
-            <li>
-              <a href="{{ item.url | relative_url }}">
-                <span class="recent-path">
-                  {% if item.module_title %}{{ item.module_title }}{% endif %}
-                  {% if item.parent_title %} / {{ item.parent_title }}{% endif %}
-                </span>
-                {% if item.title %}<strong>{{ item.title }}</strong>{% endif %}
-              </a>
-            </li>
-            {% assign recent_count = recent_count | plus: 1 %}
-          {% endif %}
-        {% endif %}
-        {% if recent_count >= 8 %}
-          {% break %}
-        {% endif %}
-      {% endfor %}
-    </ul>
-    </div>
-  </div>
 </section>
-
-<div class="thought-preview" id="thought-preview" hidden>
-  <strong class="thought-preview-title" id="thought-preview-title"></strong>
-  <p class="thought-preview-text" id="thought-preview-text"></p>
-</div>
 
 <script>
   (function () {
@@ -129,9 +126,6 @@ layout: default
     var prevBtn = document.getElementById('thoughts-prev');
     var nextBtn = document.getElementById('thoughts-next');
     var pageInfo = document.getElementById('thoughts-page-info');
-    var preview = document.getElementById('thought-preview');
-    var previewTitle = document.getElementById('thought-preview-title');
-    var previewText = document.getElementById('thought-preview-text');
     if (!list) return;
     var currentPage = 1;
 
@@ -167,46 +161,39 @@ layout: default
       filteredCards.slice(start, end).forEach(function (card) {
         card.hidden = false;
       });
+      updateExpandButtons();
 
       if (pageInfo) pageInfo.textContent = totalPages === 0 ? '0 / 0' : (currentPage + ' / ' + totalPages);
       if (prevBtn) prevBtn.disabled = totalPages === 0 || currentPage <= 1;
       if (nextBtn) nextBtn.disabled = totalPages === 0 || currentPage >= totalPages;
     }
 
-    function hidePreview() {
-      if (!preview) return;
-      preview.hidden = true;
+    function updateExpandButtons() {
+      list.querySelectorAll('.thought-card:not([hidden])').forEach(function (card) {
+        var button = card.querySelector('.thought-expand');
+        if (button.getAttribute('aria-expanded') === 'true') return;
+        button.hidden = !Array.prototype.some.call(card.querySelectorAll('h3, p'), function (text) {
+          return text.scrollHeight > text.clientHeight + 1;
+        });
+      });
     }
-
-    function positionPreview(x, y) {
-      if (!preview || preview.hidden) return;
-      var offset = 18;
-      var maxLeft = window.innerWidth - preview.offsetWidth - 16;
-      var maxTop = window.innerHeight - preview.offsetHeight - 16;
-      var left = Math.min(x + offset, maxLeft);
-      var top = Math.min(y + offset, maxTop);
-      preview.style.left = Math.max(16, left) + 'px';
-      preview.style.top = Math.max(16, top) + 'px';
-    }
-
-    function showPreview(card, event) {
-      if (!preview || window.innerWidth <= 920) return;
-      previewTitle.textContent = card.getAttribute('data-full-title') || '';
-      previewText.textContent = card.getAttribute('data-full-summary') || '';
-      preview.hidden = false;
-      positionPreview(event.clientX, event.clientY);
-    }
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(updateExpandButtons, 100);
+    });
+    if (document.fonts) document.fonts.ready.then(updateExpandButtons);
 
     list.querySelectorAll('.thought-card').forEach(function (card) {
-      card.addEventListener('mouseenter', function (event) {
-        showPreview(card, event);
+      var button = card.querySelector('.thought-expand');
+      card.classList.add('is-collapsed');
+      button.hidden = false;
+      button.addEventListener('click', function () {
+        var expanded = button.getAttribute('aria-expanded') !== 'true';
+        button.setAttribute('aria-expanded', String(expanded));
+        button.textContent = expanded ? '收起全文' : '展开全文';
+        card.classList.toggle('is-collapsed', !expanded);
       });
-      card.addEventListener('mousemove', function (event) {
-        positionPreview(event.clientX, event.clientY);
-      });
-      card.addEventListener('mouseleave', hidePreview);
-      card.addEventListener('focusin', hidePreview);
-      card.addEventListener('focusout', hidePreview);
     });
 
     function bindFilter(filter) {
@@ -214,7 +201,6 @@ layout: default
       filter.addEventListener('change', function () {
         var value = filter.value;
         currentPage = 1;
-        hidePreview();
         syncFilters(value, filter);
         renderPage(value);
       });
@@ -227,7 +213,6 @@ layout: default
       prevBtn.addEventListener('click', function () {
         var value = (desktopFilter && desktopFilter.value) || (mobileFilter && mobileFilter.value) || '';
         currentPage -= 1;
-        hidePreview();
         renderPage(value);
       });
     }
@@ -236,7 +221,6 @@ layout: default
       nextBtn.addEventListener('click', function () {
         var value = (desktopFilter && desktopFilter.value) || (mobileFilter && mobileFilter.value) || '';
         currentPage += 1;
-        hidePreview();
         renderPage(value);
       });
     }
@@ -244,7 +228,5 @@ layout: default
     var initialValue = (desktopFilter && desktopFilter.value) || (mobileFilter && mobileFilter.value) || '';
     syncFilters(initialValue, null);
     renderPage(initialValue);
-    window.addEventListener('resize', hidePreview);
-    document.addEventListener('scroll', hidePreview, true);
   })();
 </script>
