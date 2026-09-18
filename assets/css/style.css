@@ -162,7 +162,7 @@ pre code,
   margin-top: 24px;
 }
 .grid-three { grid-template-columns: repeat(3, 1fr); }
-.grid-two { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+.grid-two { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
 .grid-two > .card {
   padding: 28px;
 }
@@ -670,7 +670,7 @@ pre code,
 }
 
 /* Touch and keyboard reading controls. */
-.thought-card.is-collapsed h3, .thought-card.is-collapsed p {
+.thought-card.is-collapsed h3 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -688,6 +688,21 @@ pre code,
 .thought-expand { margin-top: 12px; }
 .thought-card { overflow-wrap: anywhere; }
 .thought-card p + p { margin-top: 0.75em; }
+.thought-card.is-collapsed .thought-summary {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--muted);
+  line-height: 1.75;
+}
+.thought-card.is-collapsed .thought-summary p { display: inline; margin: 0; }
+.thought-card.is-collapsed .thought-summary p + p::before { content: " "; }
+@media (min-width: 921px) {
+  .recent-list-inner { flex: 1; display: flex; flex-direction: column; }
+  .recent-list .recent-list-inner > li { flex: 1; margin: 0; display: flex; }
+  .recent-list-inner > li > a { width: 100%; align-content: center; }
+}
 .recent-date { display: block; margin-top: 6px; color: var(--muted); font-size: .9rem; }
 .article-body { min-width: 0; overflow-wrap: anywhere; }
 .prose img { max-width: 100%; height: auto; }

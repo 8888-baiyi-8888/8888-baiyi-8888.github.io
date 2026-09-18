@@ -105,7 +105,7 @@ layout: default
       {% for fragment in fragments %}
         <article class="thought-card" data-tags="{{ fragment.tags | join: '|' }}" data-created-at="{{ fragment.created_at }}" data-status="{{ fragment.status }}" data-full-title="{{ fragment.title | escape }}" data-full-summary="{{ fragment.summary | escape }}">
           <div id="thought-content-{{ forloop.index }}"><h3>{{ fragment.title }}</h3>
-          {{ fragment.summary | markdownify }}</div>
+          <div class="thought-summary">{{ fragment.summary | markdownify }}</div></div>
           <button type="button" class="thought-expand" aria-expanded="false" aria-controls="thought-content-{{ forloop.index }}" hidden>展开全文</button>
         </article>
       {% endfor %}
@@ -172,7 +172,7 @@ layout: default
       list.querySelectorAll('.thought-card:not([hidden])').forEach(function (card) {
         var button = card.querySelector('.thought-expand');
         if (button.getAttribute('aria-expanded') === 'true') return;
-        button.hidden = !Array.prototype.some.call(card.querySelectorAll('h3, p'), function (text) {
+        button.hidden = !Array.prototype.some.call(card.querySelectorAll('h3, .thought-summary'), function (text) {
           return text.scrollHeight > text.clientHeight + 1;
         });
       });
