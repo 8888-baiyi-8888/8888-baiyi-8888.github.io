@@ -20,6 +20,8 @@
 | `_data/thought_fragments.yml` | 首页思考碎片数据 |
 | `_config.yml` | Jekyll 与站点配置 |
 
+新增思考碎片时，在 `_data/thought_fragments.yml` 顶部插入条目，使用当前最大 `fragment-序号` 加一，并保留已有条目的编号；文件按编号从大到小排列，首页沿用此顺序。
+
 ## 内容分类：优先尊重作者定位
 
 - 用户明确称为个人总结、个人研究或原创成果的文章，优先放入 `research/`，不要只因文章讲解技术概念就放到 `understanding/`。
